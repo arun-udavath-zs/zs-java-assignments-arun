@@ -2,7 +2,7 @@ package com.zs.assignment4.cache;
 
 public class CacheController {
     public void cacheImpl(){
-        CacheService cache= new CacheService();
+        CacheService cache = new CacheService();
         cache.putEntryIntoCache(1,"product-1-info");
         cache.putEntryIntoCache(2,"product-2-info");
         cache.putEntryIntoCache(3,"product-3-info");

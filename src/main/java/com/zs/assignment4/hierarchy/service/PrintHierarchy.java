@@ -7,12 +7,12 @@ public class PrintHierarchy {
     }
     public void searchProduct(String sb,TreeNode<String> root,String input)
     {
-        if(root ==null)return ;
+        if(root == null)return ;
         if(root.data.equals(input)) {
-            sb+=input;
+            sb += input;
             System.out.println(sb);
         }
-        sb=sb+root.data+"/ ";
+        sb = sb+root.data+"/ ";
 
         for(int i=0;i<root.children.size();i++){
             searchProduct(sb,root.children.get(i),input);
@@ -22,9 +22,10 @@ public class PrintHierarchy {
     // to search the category of a product
     public String searchCategory(TreeNode<String> root)
     {
-        if(root.children.size()==0)return "/"+root.data;
+        if(root.children.size() == 0) return "/"+root.data;
         StringBuilder temp= new StringBuilder();
         temp.append(root.data).append("/");
+
         for(int i=0;i<root.children.size();i++)
         {
             temp.append(searchCategory(root.children.get(i)));
