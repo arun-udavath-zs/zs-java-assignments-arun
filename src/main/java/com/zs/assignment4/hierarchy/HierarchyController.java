@@ -24,7 +24,7 @@ public class HierarchyController {
     }
     public void hierarchy() {
         Scanner sc=new Scanner(System.in);
-        String item = "",product = "";
+        String item ,product;
         TreeNode<String> root= new TreeNode<>("Amazon");
         TreeNode<String> node1= new TreeNode<>("Electronics");
         TreeNode<String> node2= new TreeNode<>("Groceries");
