@@ -3,12 +3,14 @@ package com.zs.assignment3.service.electronics;
 import java.util.Scanner;
 
 public class Phones implements Electronic {
-    String brand;
     public static String productBought;
+    String brand;
+
     public Phones(String brand) {
         this.brand = brand;
     }
- // to filter the phones
+
+    // to filter the phones
     public int filter() {
         Scanner sc = new Scanner(System.in);
         switch (brand) {
