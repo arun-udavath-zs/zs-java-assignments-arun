@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class Phones implements Electronic {
     String brand;
     public static String productBought;
-
     public Phones(String brand) {
         this.brand = brand;
     }

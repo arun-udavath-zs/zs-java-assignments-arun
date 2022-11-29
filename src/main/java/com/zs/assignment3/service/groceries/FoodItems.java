@@ -4,16 +4,16 @@ import java.util.Scanner;
 
 import static com.zs.assignment3.service.electronics.Phones.productBought;
 public class FoodItems implements GroceriesItem{
-    String food_item;
+    String foodItem;
 
-    public FoodItems(String food_item) {
-        this.food_item = food_item;
+    public FoodItems(String foodItem) {
+        this.foodItem = foodItem;
     }
   // to filter the food items
     public int filter() {
         Scanner sc = new Scanner(System.in);
 
-        switch (food_item) {
+        switch (foodItem) {
             case "dal":
                 System.out.println("press 1 for 1 kg and press 2 for 5kg");
                 int weight = sc.nextInt();

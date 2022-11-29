@@ -7,7 +7,7 @@ public class ElectronicMain {
         this.electronic = electronic;
     }
     public void filter(){
-        int price= electronic.filter();
+        int price = electronic.filter();
         System.out.println("amount for your product "+ productBought+" is : "+ price);
         System.out.println("Thanks for shopping!!");
     }

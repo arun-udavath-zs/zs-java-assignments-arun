@@ -15,10 +15,10 @@ import java.util.Scanner;
 
 public class ProductController {
     public void product(){
-        Scanner sc= new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.println("press 1 for buy or 2 for add the product");
         int productItem= sc.nextInt();
-        if(productItem==1) {
+        if(productItem == 1) {
             System.out.println("Enter 1 for electronics or 2 for groceries");
             int option = sc.nextInt();
              if (option == 1) {
@@ -54,7 +54,7 @@ public class ProductController {
             }
         }
         else{
-            List<String> products= new ArrayList<>();
+            List<String> products = new ArrayList<>();
             products.add("Electronics");
             products.add("Groceries");
             System.out.println("List of products are : "+products );
@@ -62,7 +62,7 @@ public class ProductController {
             int product= sc.nextInt();
             if (product == 1){
                 System.out.println("Enter the product");
-                String newProduct= sc.next();
+                String newProduct = sc.next();
                 products.add(newProduct);
                 System.out.println("List of products are : "+ products);
             }
@@ -75,11 +75,11 @@ public class ProductController {
                 groceries.add("Vegetables");
                 System.out.println("press 1 to display the electronics or 2 for groceries");
                 int item= sc.nextInt();
-                if(item==1){
+                if(item == 1){
                     System.out.println("Item in electronics are : "+ electronics);
                     System.out.println("press 1  to add a new electronic or press 2");
                     int item1= sc.nextInt();
-                    if (item1== 1){
+                    if (item1 == 1){
                         System.out.println("Enter the item");
                         String newItem= sc.next();
                         electronics.add(newItem);
@@ -89,10 +89,10 @@ public class ProductController {
                 else {
                     System.out.println("Items in the groceries are :"+ groceries);
                     System.out.println("press 1  to add a new grocery or press 2");
-                    int item1= sc.nextInt();
-                    if (item1== 1){
+                    int item1 = sc.nextInt();
+                    if (item1 == 1){
                         System.out.println("Enter the item");
-                        String newItem= sc.next();
+                        String newItem = sc.next();
                         groceries.add(newItem);
                         System.out.println("List of products are : "+ groceries);
                     }
