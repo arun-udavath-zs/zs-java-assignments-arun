@@ -63,18 +63,22 @@ public class ProductDatabase {
         List<String> fashionProducts = new ArrayList<>();
         fashionProducts.add("Jeans");
         fashionProducts.add("Hoodies");
+        fashionProducts.add("shirts");
         productData.put(ProductType.FASHION, fashionProducts);
         List<String> electronicsProducts = new ArrayList<>();
         electronicsProducts.add("phones");
         electronicsProducts.add("laptops");
+        electronicsProducts.add("washingMachine");
         productData.put(ProductType.ELECTRONIC, electronicsProducts);
         List<String> groceryProducts = new ArrayList<>();
         groceryProducts.add("dryFruits");
         groceryProducts.add("vegetables");
+        groceryProducts.add("rice");
         productData.put(ProductType.GROCERY, groceryProducts);
         List<String> medicines = new ArrayList<>();
         medicines.add("dolo");
         medicines.add("paracetamol");
+        medicines.add("aspirin");
         productData.put(ProductType.MEDICINE, medicines);
     }
 
