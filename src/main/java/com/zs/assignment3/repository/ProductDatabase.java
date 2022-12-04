@@ -80,6 +80,7 @@ public class ProductDatabase {
         medicines.add("paracetamol");
         medicines.add("aspirin");
         productData.put(ProductType.MEDICINE, medicines);
+
     }
 
     public void homePage() {
