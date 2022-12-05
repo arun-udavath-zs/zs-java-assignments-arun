@@ -35,7 +35,7 @@ public class ProductDatabase {
             if (productTypeList.get(i).equals(prevProduct)) {
                 productTypeList.add(i, productType);
                 productData.put(product, productTypeList);
-                System.out.println("Thanks for updating the product!!\n");
+                System.out.println("Thanks for updating the product from " + prevProduct + " to "+ productType +"!!\n");
                 flag = true;
                 break;
             }
@@ -49,10 +49,11 @@ public class ProductDatabase {
         boolean flag = false;
         for (String item : productTypeList) {
             if (item.equals(productType)) {
-                productTypeList.remove(productType);
+                productTypeList.remove(item);
                 productData.put(product, productTypeList);
                 System.out.println(productType + " deleted from the Database.\n");
                 flag = true;
+                break;
             }
         }
         if (!flag) System.out.println(productType + " product not found in the database");

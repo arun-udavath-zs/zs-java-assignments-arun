@@ -11,6 +11,7 @@ import com.zs.assignment3.service.Medicine;
 import java.util.Scanner;
 
 public class ProductController {
+
     public void controller() {
         Scanner sc = new Scanner(System.in);
         int productChoice;
@@ -38,6 +39,9 @@ public class ProductController {
             case 4:
                 userOperation(medicine);
                 break;
+            default:
+                System.out.println("please choose the correct option");
+                controller();
         }
 
     }
@@ -61,6 +65,9 @@ public class ProductController {
             case 4:
                 product.deleteProduct();
                 break;
+            default:
+                System.out.println("please choice the correct option");
+                 userOperation(product);
         }
     }
 
