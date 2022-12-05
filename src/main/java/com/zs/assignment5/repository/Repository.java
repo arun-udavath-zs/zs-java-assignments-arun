@@ -13,7 +13,6 @@ import java.util.Scanner;
 
 public class Repository {
     /**
-     *
      * @param file Log file of developers commit
      * @param list stores the developer information in object format in list
      * @throws IOException throws exception while commit id or date or author name are incomplete
