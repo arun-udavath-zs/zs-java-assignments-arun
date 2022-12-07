@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
 
@@ -21,6 +23,8 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @ExtendWith(MockitoExtension.class)
 class StudentServiceTest {
+
+    private static final Logger logger= LoggerFactory.getLogger(StudentServiceTest.class);
     @Mock
     private StudentDAOImpl studentDAO;
 
@@ -60,7 +64,7 @@ class StudentServiceTest {
             Student student = studentService.addStudent(id, firstName, lastName);
             fail("Wasn't expecting a result!!!!");
         } catch (StudentServiceImpl.ServiceException e) {
-            //succeeded
+            logger.error(e.getMessage());
         }
     }
 }
