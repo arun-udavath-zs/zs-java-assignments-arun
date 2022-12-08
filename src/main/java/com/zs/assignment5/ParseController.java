@@ -21,14 +21,19 @@ public class ParseController {
     public void parser() throws ParseException {
         Scanner sc = new Scanner(System.in);
         int choice;
+        String filePath;
         FileException fileProgram = new FileException();
-        List<LogObject> logData = fileProgram.openFile();
+        List<LogObject> logData;
+
+        logger.info("Enter the log file path");
+        filePath = sc.next();
+        logData = fileProgram.openFile(filePath);
+
         logger.info("Enter choice\n1.Total Count of commits by each developer since date d\n" +
                 "2. Count of commits by each developer since date d, for each day\n" +
                 "3. List of developers who did not commit anything successively in 2 days\n" +
                 "4. to exit");
         choice = sc.nextInt();
-
         switch (choice) {
             case 1:
                 totalCommitService.totalCommitsByDev(logData);

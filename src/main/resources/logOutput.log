@@ -386,3 +386,17 @@
 2. Count of commits by each developer since date d, for each day
 3. List of developers who did not commit anything successively in 2 days
 4. to exit
+2022-12-08 12:08:29 INFO  ParseController:27 - Enter choice
+1.Enter the file path
+2.Total Count of commits by each developer since date d
+3. Count of commits by each developer since date d, for each day
+4. List of developers who did not commit anything successively in 2 days
+5. to exit
+2022-12-08 12:13:18 INFO  ParseController:28 - Enter the log file path
+2022-12-08 12:13:35 INFO  ParseController:32 - Enter choice
+1.Total Count of commits by each developer since date d
+2. Count of commits by each developer since date d, for each day
+3. List of developers who did not commit anything successively in 2 days
+4. to exit
+2022-12-08 12:13:41 INFO  TotalCommitService:27 - Enter date
+2022-12-08 12:13:50 INFO  ParseController:28 - Enter the log file path

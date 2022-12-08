@@ -17,9 +17,9 @@ public class FileException {
      * throws exception
      * @return list of log data of developers
      */
-    public List<LogObject> openFile() {
+    public List<LogObject> openFile(String filePath) {
         try {
-            File file = new File("/home/lenovo/Documents/zs-java-assignments/src/main/resources/log.txt");
+            File file = new File(filePath);
             List<LogObject> list = new ArrayList<>();
             Repository repo = new Repository();
             repo.readFile(file, list);
