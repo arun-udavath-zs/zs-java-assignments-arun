@@ -19,7 +19,7 @@ public class EachDayCommits {
      * gives details of each day commits of developers
      *
      * @param logData log data of developer commits
-     * @throws ParseException
+     * @throws ParseException exception throws if date conversion fails
      */
     public void commitsByDevEachDay(List<LogObject> logData) throws ParseException {
         Scanner sc = new Scanner(System.in);
