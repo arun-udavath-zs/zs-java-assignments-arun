@@ -8,11 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ProductDatabase {
-    private final ProductController productController;
     private HashMap<ProductType, List<String>> productData = new HashMap<>();
 
-    public ProductDatabase(ProductController productController) {
-        this.productController = productController;
+    public ProductDatabase() {
         initialDatabase();
     }
 
@@ -23,7 +21,6 @@ public class ProductDatabase {
         productTypeList.add(productType);
         productData.put(product, productTypeList);
         System.out.println(productType + " added to the Database.\nThanks for adding the product!!\n");
-        homePage();
     }
 
     public void readProduct(ProductType product) {
@@ -31,7 +28,6 @@ public class ProductDatabase {
         for (String item : productTypeList) {
             System.out.println(item);
         }
-        homePage();
     }
 
     public void updateProduct(ProductType product, String prevProduct, String productType) {
@@ -47,7 +43,6 @@ public class ProductDatabase {
             }
         }
         if (!flag) System.out.println(productType + " product not found in the database");
-        homePage();
     }
 
     public void deleteProduct(ProductType product, String productType) {
@@ -62,9 +57,7 @@ public class ProductDatabase {
                 break;
             }
         }
-        if (!flag) System.out.println(productType + " product not found in the database");
-        homePage();
-    }
+        if (!flag) System.out.println(productType + " product not found in the database");    }
 
     private void initialDatabase() {
         List<String> fashionProducts = new ArrayList<>();
@@ -88,9 +81,5 @@ public class ProductDatabase {
         medicines.add("aspirin");
         productData.put(ProductType.MEDICINE, medicines);
 
-    }
-
-    private void homePage() {
-        productController.controller();
     }
 }

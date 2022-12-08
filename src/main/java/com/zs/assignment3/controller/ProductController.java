@@ -19,7 +19,7 @@ public class ProductController {
     private final Medicine medicine;
 
     public ProductController() {
-        this.productDatabase = new ProductDatabase(this);
+        this.productDatabase = new ProductDatabase();
         this.fashion = new Fashion(productDatabase);
         this.grocery = new Grocery(productDatabase);
         this.electronic = new Electronic(productDatabase);
@@ -27,30 +27,33 @@ public class ProductController {
     }
 
     public void controller() {
-        Scanner sc = new Scanner(System.in);
         int productChoice;
+        do {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("choose the products of your choice press\n" +
+                    " 1. Fashions \n 2. Groceries\n 3. Electronics \n 4. Medicines \n 5. to exit");
+            productChoice = sc.nextInt();
 
-        System.out.println("choose the products of your choice press\n" +
-                " 1. Fashions \n 2. Groceries\n 3. Electronics \n 4. Medicines");
-        productChoice = sc.nextInt();
-
-        switch (productChoice) {
-            case 1:
-                userOperation(fashion);
-                break;
-            case 2:
-                userOperation(grocery);
-                break;
-            case 3:
-                userOperation(electronic);
-                break;
-            case 4:
-                userOperation(medicine);
-                break;
-            default:
-                System.out.println("please choose the correct option");
-                controller();
-        }
+            switch (productChoice) {
+                case 1:
+                    userOperation(fashion);
+                    break;
+                case 2:
+                    userOperation(grocery);
+                    break;
+                case 3:
+                    userOperation(electronic);
+                    break;
+                case 4:
+                    userOperation(medicine);
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("please choose the correct option");
+                    controller();
+            }
+        }while (productChoice!= 5);
 
     }
 
