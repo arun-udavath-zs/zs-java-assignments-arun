@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static com.zs.assignment5.utils.DateConversion.dateConverter;
 
@@ -14,36 +15,36 @@ public class CommitHistory {
 
     /**
      * shows developer commit history
+     *
      * @param logData log data of commits
      * @throws ParseException throws exception if conversion of date fails
      */
-    public void commitDetails(List<LogObject> logData) throws ParseException {
+    public void inActiveUser(List<LogObject> logData) throws ParseException {
         Scanner sc = new Scanner(System.in);
-        logger.info("Enter date");
+        logger.info("Enter date in yyy-mm-dd format");
         String inputDate = sc.next();
         Date date = dateConverter(inputDate);
         Map<String, Date> mapData = new HashMap<>();
         List<String> user = new ArrayList<>();
 
         for (LogObject object : logData) {
-            if (object.date.before(date)) {
-                break;
-            } else {
+            if (object.date.after(date)) {
                 if (mapData.containsKey(object.authorName)) {
-                    long timeDiff = object.date.getTime() - date.getTime();
-                    long diff = (timeDiff / (1000 * 60 * 60 * 24)) % 365;
-                    if (diff > 2) {
+                    Date lastCommitDate = mapData.get(object.authorName);
+                    long duration = lastCommitDate.getTime() - object.date.getTime();
+                    long diffInDays = TimeUnit.MILLISECONDS.toDays(duration);
+                    if (diffInDays > 2)
                         user.add(object.authorName);
-                    }
+                    mapData.put(object.authorName, lastCommitDate);
                 } else {
-                    mapData.put(object.authorName, date);
+                    mapData.put(object.authorName, object.date);
                 }
             }
         }
-        if (user.size() == 0)
+        if (user.size() == 0) {
             logger.info("No author found");
-        for (int i = 0; i < user.size(); i++) {
-            logger.info("Author Name: " + user.get(i));
+        } else {
+            logger.info("Author Names: " + user);
         }
     }
 

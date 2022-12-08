@@ -17,19 +17,20 @@ public class EachDayCommits {
 
     /**
      * gives details of each day commits of developers
+     *
      * @param logData log data of developer commits
      * @throws ParseException
      */
     public void commitsByDevEachDay(List<LogObject> logData) throws ParseException {
         Scanner sc = new Scanner(System.in);
-        logger.info("Enter date");
+        logger.info("Enter date in yyy-mm-dd format");
         String inputDate = sc.next();
         Date date = dateConverter(inputDate);
         HashMap<Date, Boolean> map = new HashMap<>();
 
         for (LogObject object : logData) {
             if (date.equals(object.date) || (date.before(object.date))) {
-                if (map.containsKey(object.date) == false) {
+                if (!map.containsKey(object.date)) {
                     map.put(object.date, true);
                     CommitsOnDate(object.date, logData);
                 }

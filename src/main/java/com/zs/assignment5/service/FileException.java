@@ -1,5 +1,6 @@
 package com.zs.assignment5.service;
 
+import com.zs.assignment5.exception.CustomException;
 import com.zs.assignment5.repository.Repository;
 import com.zs.assignment5.utils.LogObject;
 import org.slf4j.Logger;
@@ -15,9 +16,10 @@ public class FileException {
 
     /**
      * throws exception
+     *
      * @return list of log data of developers
      */
-    public List<LogObject> openFile(String filePath) {
+    public List<LogObject> openFile(String filePath, List<String> authorList) {
         try {
             File file = new File(filePath);
             List<LogObject> list = new ArrayList<>();
@@ -27,9 +29,11 @@ public class FileException {
             for (LogObject object : list) {
                 if (object.commitId.length() != 40) {
                     logger.error("commitId is incomplete");
+                    throw new CustomException("Commit id is incomplete");
                 }
-                if (!object.authorName.equals("arunudavath") && !object.authorName.equals("iliyaz-ali") && !object.authorName.equals("md-iqbal")) {
+                if (!authorList.contains(object.authorName)) {
                     logger.error("Author name is incorrect");
+                    throw new CustomException("Author name is incorrect");
                 }
             }
             return list;

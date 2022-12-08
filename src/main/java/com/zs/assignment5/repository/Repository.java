@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,31 +16,29 @@ public class Repository {
      * @throws IOException throws exception while commit id or date or author name are incomplete
      */
     public void readFile(File file, List<LogObject> list) throws IOException, ParseException {
-        Scanner bf = new Scanner(file);
+        Scanner sc = new Scanner(file);
         int count = 0;
 
-        while (bf.hasNextLine()) {
+        while (sc.hasNextLine()) {
             LogObject logObject = new LogObject();
-            String s = bf.nextLine();
+            String s = sc.nextLine();
             String[] arr = s.trim().split("\\s");
             if (arr[0].equals("commit")) {
                 logObject.commitId = arr[1];
             }
-            s = bf.nextLine();
+            s = sc.nextLine();
             String[] arr1 = s.trim().split("\\s");
             if (arr1[0].equals("Author:")) {
                 logObject.authorName = arr1[1];
             }
-            s = bf.nextLine();
+            s = sc.nextLine();
             String[] arr2 = s.trim().split("\\s");
 
             if (arr2[0].equals("Date:")) {
                 String newDate = arr2[5] + '-' + arr2[4] + '-' + arr2[7];
                 SimpleDateFormat formatter5 = new SimpleDateFormat("dd-MMM-yyyy");
-                Date date1 = formatter5.parse(newDate);
-                logObject.date = date1;
+                logObject.date = formatter5.parse(newDate);
             }
-
             list.add(logObject);
             count++;
             if (count == 12) break;

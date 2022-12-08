@@ -5,11 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.List;
+import java.util.Date;
+
 
 import static com.zs.assignment5.utils.DateConversion.dateConverter;
 
@@ -19,12 +20,13 @@ public class TotalCommitService {
 
     /**
      * gives information of total commits of each developer
+     *
      * @param logData log data of commits
      * @throws ParseException throws exception if conversion of date fails
      */
     public void totalCommitsByDev(List<LogObject> logData) throws ParseException {
         Scanner sc = new Scanner(System.in);
-        logger.info("Enter date");
+        logger.info("Enter date in yyy-mm-dd format");
         String inputDate = sc.next();
         Date date = dateConverter(inputDate);
 
