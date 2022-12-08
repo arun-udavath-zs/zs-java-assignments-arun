@@ -1,15 +1,21 @@
 package com.zs.assignment3.repository;
 
-import com.zs.assignment3.controller.ProductController;
 import com.zs.assignment3.ProductType;
+import com.zs.assignment3.controller.ProductController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class ProductDatabase {
-    private static HashMap<ProductType, List<String>> productData = new HashMap<>();
-    ProductController productController = new ProductController();
+    private final ProductController productController;
+    private HashMap<ProductType, List<String>> productData = new HashMap<>();
+
+    public ProductDatabase(ProductController productController) {
+        this.productController = productController;
+        initialDatabase();
+    }
+
 
     public void addProduct(ProductType product, String productType) {
 
@@ -35,7 +41,7 @@ public class ProductDatabase {
             if (productTypeList.get(i).equals(prevProduct)) {
                 productTypeList.add(i, productType);
                 productData.put(product, productTypeList);
-                System.out.println("Thanks for updating the product from " + prevProduct + " to "+ productType +"!!\n");
+                System.out.println("Thanks for updating the product from " + prevProduct + " to " + productType + "!!\n");
                 flag = true;
                 break;
             }
@@ -60,7 +66,7 @@ public class ProductDatabase {
         homePage();
     }
 
-    public void initialDatabase() {
+    private void initialDatabase() {
         List<String> fashionProducts = new ArrayList<>();
         fashionProducts.add("Jeans");
         fashionProducts.add("Hoodies");
@@ -84,7 +90,7 @@ public class ProductDatabase {
 
     }
 
-    public void homePage() {
+    private void homePage() {
         productController.controller();
     }
 }

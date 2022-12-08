@@ -1,14 +1,18 @@
 package com.zs.assignment3.service;
 
 import com.zs.assignment3.Product;
-import com.zs.assignment3.repository.ProductDatabase;
 import com.zs.assignment3.ProductType;
+import com.zs.assignment3.repository.ProductDatabase;
 
 import java.util.Scanner;
 
 public class Grocery implements Product {
     String productName;
-    ProductDatabase productDatabase = new ProductDatabase();
+    private final ProductDatabase productDatabase;
+
+    public Grocery(ProductDatabase productDatabase) {
+        this.productDatabase = productDatabase;
+    }
 
     @Override
     public void createProduct() {

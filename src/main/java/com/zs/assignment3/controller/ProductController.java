@@ -12,15 +12,23 @@ import java.util.Scanner;
 
 public class ProductController {
 
+    private final ProductDatabase productDatabase;
+    private final Fashion fashion;
+    private final Grocery grocery;
+    private final Electronic electronic;
+    private final Medicine medicine;
+
+    public ProductController() {
+        this.productDatabase = new ProductDatabase(this);
+        this.fashion = new Fashion(productDatabase);
+        this.grocery = new Grocery(productDatabase);
+        this.electronic = new Electronic(productDatabase);
+        this.medicine = new Medicine(productDatabase);
+    }
+
     public void controller() {
         Scanner sc = new Scanner(System.in);
         int productChoice;
-        ProductDatabase productDatabase = new ProductDatabase();
-        productDatabase.initialDatabase();
-        Fashion fashion = new Fashion();
-        Grocery grocery = new Grocery();
-        Electronic electronic = new Electronic();
-        Medicine medicine = new Medicine();
 
         System.out.println("choose the products of your choice press\n" +
                 " 1. Fashions \n 2. Groceries\n 3. Electronics \n 4. Medicines");
@@ -67,7 +75,7 @@ public class ProductController {
                 break;
             default:
                 System.out.println("please choice the correct option");
-                 userOperation(product);
+                userOperation(product);
         }
     }
 

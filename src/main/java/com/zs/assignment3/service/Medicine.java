@@ -1,14 +1,18 @@
 package com.zs.assignment3.service;
 
 import com.zs.assignment3.Product;
-import com.zs.assignment3.repository.ProductDatabase;
 import com.zs.assignment3.ProductType;
+import com.zs.assignment3.repository.ProductDatabase;
 
 import java.util.Scanner;
 
 public class Medicine implements Product {
     String medicineName;
-    ProductDatabase productDatabase = new ProductDatabase();
+    private final ProductDatabase productDatabase;
+
+    public Medicine(ProductDatabase productDatabase) {
+        this.productDatabase = productDatabase;
+    }
 
     @Override
     public void createProduct() {

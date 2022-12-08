@@ -1,15 +1,19 @@
 package com.zs.assignment3.service;
 
 import com.zs.assignment3.Product;
-import com.zs.assignment3.repository.ProductDatabase;
 import com.zs.assignment3.ProductType;
+import com.zs.assignment3.repository.ProductDatabase;
 
 import java.util.Scanner;
 
 public class Fashion implements Product {
 
     String productName;
-    ProductDatabase productDatabase = new ProductDatabase();
+    ProductDatabase productDatabase;
+
+    public Fashion(ProductDatabase productDatabase) {
+        this.productDatabase = productDatabase;
+    }
 
     @Override
     public void createProduct() {
