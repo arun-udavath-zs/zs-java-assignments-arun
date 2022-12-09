@@ -16,9 +16,8 @@ public class JdbcService {
     /**
      * it will create the tables of students and departments
      *
-     * @throws SQLException throws exception when database connection fails
      */
-    public void jdbc() throws SQLException {
+    public void jdbc() {
 
         DatabaseConnection dbConn = new DatabaseConnection();
         RandomFunctions randomFunctions = new RandomFunctions();
@@ -27,8 +26,8 @@ public class JdbcService {
 
         try (Connection connection = dbConn.dbConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            department.InsertDataIntoDepartment();
-            student.createStudentTable();
+             department.InsertDataIntoDepartment();
+             student.createStudentTable();
 
             for (int i = 1; i < 1000; i++) {
                 preparedStatement.setString(1, String.valueOf(i));

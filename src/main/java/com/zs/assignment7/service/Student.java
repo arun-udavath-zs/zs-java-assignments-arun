@@ -17,9 +17,9 @@ public class Student {
 
         DatabaseConnection dbConn = new DatabaseConnection();
         try (Connection connection = dbConn.dbConnection();
-             Statement statement = connection.createStatement();) {
-            statement.executeUpdate(createQuery);
-            logger.info("student table created successfully");
+             Statement statement = connection.createStatement()) {
+             statement.executeUpdate(createQuery);
+             logger.info("student table created successfully");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
