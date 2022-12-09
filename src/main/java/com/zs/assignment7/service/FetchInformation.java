@@ -15,6 +15,7 @@ import java.sql.SQLException;
 public class FetchInformation {
 
     private static final Logger logger = LoggerFactory.getLogger(FetchInformation.class);
+    String readQuery = "select * from students limit 50;";
 
     /**
      * used to add the data into the file
@@ -51,13 +52,9 @@ public class FetchInformation {
      */
     public ResultSet readDataFromDatabase() {
         DatabaseConnection dbConn = new DatabaseConnection();
-        Connection connection;
-        PreparedStatement statement;
 
-        try {
-            connection = dbConn.dbConnection();
-            String sql = "select * from students limit 50;";
-            statement = connection.prepareStatement(sql);
+        try (Connection connection = dbConn.dbConnection();
+             PreparedStatement statement = connection.prepareStatement(readQuery);) {
             ResultSet resultSet = statement.executeQuery();
             logger.info("Data fetched successfully from table");
             return resultSet;

@@ -12,7 +12,6 @@ public class JdbcController {
     private static final String path = "/home/lenovo/Documents/zs-java-assignments/src/main/resources/dataOutput.txt";
 
     public void controller() throws SQLException, IOException {
-
         JdbcService service = new JdbcService();
         service.jdbc();
         FetchInformation fetch = new FetchInformation();

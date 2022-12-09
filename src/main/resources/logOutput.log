@@ -129,3 +129,11 @@
 2022-12-03 22:12:45 INFO  Student:20 - student table created successfully
 2022-12-03 22:12:46 INFO  DatabaseConnection:27 - database connected successfully
 2022-12-03 22:12:46 INFO  FetchInformation:62 - Data fetched successfully from table
+2022-12-09 10:02:35 ERROR DatabaseConnection:29 - exception occured :Connection to localhost:2022 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+2022-12-09 10:04:29 INFO  DatabaseConnection:27 - database connected successfully
+2022-12-09 10:04:29 INFO  DatabaseConnection:27 - database connected successfully
+2022-12-09 10:04:29 INFO  Department:32 - Created departments table in given database...
+2022-12-09 10:04:29 INFO  DatabaseConnection:27 - database connected successfully
+2022-12-09 10:04:29 INFO  Student:20 - student table created successfully
+2022-12-09 10:04:29 INFO  DatabaseConnection:27 - database connected successfully
+2022-12-09 10:04:29 INFO  FetchInformation:62 - Data fetched successfully from table

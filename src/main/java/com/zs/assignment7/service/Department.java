@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class Department {
     private final static Logger logger = LoggerFactory.getLogger(Department.class);
+    String createQuery = "CREATE TABLE IF NOT EXISTS departments (id VARCHAR(10),dept_name VARCHAR(50))";
     public static ArrayList<String> deptName = new ArrayList<>();
 
     /**
@@ -19,16 +20,13 @@ public class Department {
 
     public void InsertDataIntoDepartment() throws SQLException {
 
-        Connection connection;
-        Statement statement = null;
 
-        try {
-            DatabaseConnection dbConn = new DatabaseConnection();
-            connection = dbConn.dbConnection();
-            statement = connection.createStatement();
+        DatabaseConnection dbConn = new DatabaseConnection();
 
-            String query = "CREATE TABLE IF NOT EXISTS departments (id VARCHAR(10),dept_name VARCHAR(50))";
-            statement.executeUpdate(query);
+        try (Connection connection = dbConn.dbConnection();
+             Statement statement = connection.createStatement();) {
+
+            statement.executeUpdate(createQuery);
             logger.info("Created departments table in given database...");
 
             statement.executeUpdate("INSERT INTO departments(id, dept_name) VALUES ('0','CSE')");
@@ -46,10 +44,7 @@ public class Department {
         } catch (SQLException e) {
             logger.error("exception occured " + e.getMessage());
             throw new RuntimeException(e);
-        } finally {
-            if (statement != null) statement.close();
         }
-
     }
 
 }

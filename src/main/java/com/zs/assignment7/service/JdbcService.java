@@ -11,6 +11,7 @@ import java.sql.SQLException;
 public class JdbcService {
 
     private final static Logger logger = LoggerFactory.getLogger(JdbcService.class);
+    String insertQuery = "INSERT INTO students (id,first_name,last_name,mobile,departments) VALUES (?,?,?,?,?)";
 
     /**
      * it will create the tables of students and departments
@@ -21,17 +22,13 @@ public class JdbcService {
 
         DatabaseConnection dbConn = new DatabaseConnection();
         RandomFunctions randomFunctions = new RandomFunctions();
-        Connection connection;
-        PreparedStatement preparedStatement = null;
         Department department = new Department();
         Student student = new Student();
 
-        try {
-            connection = dbConn.dbConnection();
+        try (Connection connection = dbConn.dbConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             department.InsertDataIntoDepartment();
             student.createStudentTable();
-            String insertQuery = "INSERT INTO students (id,first_name,last_name,mobile,departments) VALUES (?,?,?,?,?)";
-            preparedStatement = connection.prepareStatement(insertQuery);
 
             for (int i = 1; i < 1000; i++) {
                 preparedStatement.setString(1, String.valueOf(i));
@@ -44,8 +41,6 @@ public class JdbcService {
         } catch (SQLException e) {
             logger.error("exception occured" + e.getMessage());
             e.printStackTrace();
-        } finally {
-            if (preparedStatement != null) preparedStatement.close();
         }
     }
 }
