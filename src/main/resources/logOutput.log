@@ -616,3 +616,232 @@
 2. Count of commits by each developer since date d, for each day
 3. List of developers who did not commit anything successively in 2 days
 4. to exit
+2022-12-09 19:03:55 INFO  ProductController:24 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 19:04:10 INFO  ProductController:29 - Enter the table name
+2022-12-09 21:14:46 INFO  ProductController:24 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 21:18:14 INFO  ProductController:28 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 21:25:06 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 21:25:15 INFO  ProductController:45 - Enter id, productName,price and tableName
+2022-12-09 21:26:49 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 21:26:55 INFO  ProductController:45 - Enter id, productName,price and tableName
+2022-12-09 21:28:28 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 21:28:34 INFO  ProductController:45 - Enter id, productName,price and tableName
+2022-12-09 21:28:55 INFO  ProductRepoImpl:59 - product added in the database successfully!!
+2022-12-09 21:29:45 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 21:29:50 INFO  ProductController:36 - Enter the table name
+2022-12-09 22:32:44 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 22:32:53 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 22:33:00 INFO  ProductController:36 - Enter the table name
+2022-12-09 22:41:21 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 22:41:28 INFO  ProductController:36 - Enter the table name
+2022-12-09 22:42:24 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 22:42:29 INFO  ProductController:36 - Enter the table name
+2022-12-09 22:42:33 INFO  ProductController:40 - com.zs.assignment10.model.Product@6be46e8f
+2022-12-09 22:43:38 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 22:43:43 INFO  ProductController:36 - Enter the table name
+2022-12-09 22:43:48 INFO  ProductController:40 - Product{id=1, productName='iphone14', price=120000}
+2022-12-09 23:21:44 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product 
+2022-12-09 23:24:37 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-09 23:24:44 INFO  ProductController:52 - Enter id, productName,price and tableName
+2022-12-09 23:25:03 INFO  ProductController:31 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-09 23:25:13 INFO  ProductController:52 - Enter id, productName,price and tableName
+2022-12-09 23:25:39 INFO  ProductRepoImpl:62 - product added in the database successfully!!
+2022-12-09 23:29:15 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-09 23:29:29 INFO  ProductController:38 - Enter the table name
+2022-12-09 23:29:36 INFO  ProductController:42 - Product{id=1, productName='iphone14', price=120000}
+2022-12-09 23:29:36 INFO  ProductController:42 - Product{id=2, productName='samsung', price=30000}
+2022-12-09 23:29:36 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-09 23:29:45 INFO  ProductController:61 - Enter the id, productName, price, tableName
+2022-12-09 23:31:07 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-09 23:31:18 INFO  ProductController:61 - Enter the id, productName, price, tableName
+2022-12-10 00:01:11 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:01:16 INFO  ProductController:61 - Enter the id, productName, price, tableName
+2022-12-10 00:06:07 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:06:12 INFO  ProductController:61 - Enter the id, productName, price, tableName
+2022-12-10 00:06:32 INFO  ProductRepoImpl:80 - product updated in the database!!
+2022-12-10 00:06:32 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:07:17 INFO  ProductController:69 - Enter the id and tableName
+2022-12-10 00:07:24 INFO  ProductRepoImpl:96 - product deleted successfully!!
+2022-12-10 00:07:24 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:07:46 INFO  ProductController:75 - Enter the id and tableName
+2022-12-10 00:09:31 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:09:39 INFO  ProductController:75 - Enter the id and tableName
+2022-12-10 00:11:10 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:14:09 INFO  ProductController:75 - Enter the id and tableName
+2022-12-10 00:14:37 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:14:41 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:14:47 INFO  ProductController:75 - Enter the id and tableName
+2022-12-10 00:20:52 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:21:01 INFO  ProductController:75 - Enter the id and tableName
+2022-12-10 00:22:49 INFO  ProductController:32 - Enter the choice of operation
+1. to get all the products
+2. to find the product
+3. to insert the product
+4. to update the product
+5. to delete the product
+6. to check existences of product
+7. to stop 
+2022-12-10 00:22:55 INFO  ProductController:75 - Enter the id and tableName
