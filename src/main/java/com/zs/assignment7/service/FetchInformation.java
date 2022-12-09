@@ -51,6 +51,7 @@ public class FetchInformation {
      * * @throws SQLException throws exception when database connection fails
      */
     public ResultSet readDataFromDatabase() {
+
         DatabaseConnection dbConn = new DatabaseConnection();
 
         try (Connection connection = dbConn.dbConnection();

@@ -20,7 +20,8 @@ public class DatabaseConnection {
      * @return a connection of database
      * @throws SQLException throws exception when database connection fails
      */
-    public Connection dbConnection() throws SQLException {
+    public Connection dbConnection() {
+
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);

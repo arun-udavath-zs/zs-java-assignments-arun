@@ -10,6 +10,7 @@ public class RandomFunctions {
      * @return a random name
      */
     public String generateName() {
+
         String str = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder buffer = new StringBuilder();
 
@@ -26,6 +27,7 @@ public class RandomFunctions {
      * @return a random number
      */
     public String generateMobile() {
+
         Random random = new Random();
         String num1, num2, num3,res;
         num1 = String.valueOf(random.nextInt(9000) + 100);
@@ -42,6 +44,7 @@ public class RandomFunctions {
      * @return a random departments
      */
     public String generateDepartment(List<String> array) {
+
         int rand = new Random().nextInt(array.size());
         return array.get(rand);
     }

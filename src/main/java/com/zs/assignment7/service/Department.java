@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Department {
+
     private final static Logger logger = LoggerFactory.getLogger(Department.class);
     String createQuery = "CREATE TABLE IF NOT EXISTS departments (id VARCHAR(10),dept_name VARCHAR(50))";
     public static ArrayList<String> deptName = new ArrayList<>();
