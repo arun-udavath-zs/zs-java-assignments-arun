@@ -1,6 +1,0 @@
-2022-12-07 20:58:45 ERROR StudentServiceImpl:27 - first name is null
-2022-12-07 20:58:45 ERROR StudentServiceImpl:31 - last name is null
-2022-12-07 21:01:07 INFO  StudentDAOImpl:28 - initial setup of database
-2022-12-07 21:01:07 INFO  StudentDAOImpl:18 - student details added in the database
-2022-12-07 21:01:27 INFO  StudentDAOImpl:28 - initial setup of database
-2022-12-07 21:01:42 INFO  StudentDAOImpl:18 - student details added in the database
