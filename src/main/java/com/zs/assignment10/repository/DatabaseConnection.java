@@ -8,7 +8,8 @@ public class DatabaseConnection {
     private static final String DB_URL = "jdbc:postgresql://localhost:2022/products";
     private static final String USER = "postgres";
     private static final String PASSWORD = "1234";
+
     public Connection dbConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL,USER,PASSWORD);
+        return DriverManager.getConnection(DB_URL, USER, PASSWORD);
     }
 }
