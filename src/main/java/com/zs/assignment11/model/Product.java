@@ -3,7 +3,9 @@ package com.zs.assignment11.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table
@@ -20,7 +22,10 @@ public class Product {
         this.category = category;
         this.price = price;
     }
-    Product(){}
+
+    Product() {
+    }
+
     private String category;
     private int price;
 }
