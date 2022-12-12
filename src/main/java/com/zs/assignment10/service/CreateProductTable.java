@@ -1,10 +1,12 @@
-package com.zs.assignment10.repository;
+package com.zs.assignment10.service;
+
+import com.zs.assignment10.repository.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ProductTable {
+public class CreateProductTable {
     public void tableCreation() {
         DatabaseConnection dbConnection = new DatabaseConnection();
 

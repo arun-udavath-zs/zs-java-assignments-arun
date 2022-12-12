@@ -1,7 +1,7 @@
 package com.zs.assignment10.controller;
 
 import com.zs.assignment10.model.Product;
-import com.zs.assignment10.repository.ProductTable;
+import com.zs.assignment10.service.CreateProductTable;
 import com.zs.assignment10.service.ProductService;
 import com.zs.assignment10.service.ProductServiceImpl;
 import org.slf4j.Logger;
@@ -17,11 +17,11 @@ public class ProductController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
-    private final ProductTable productTable;
+    private final CreateProductTable productTable;
 
     public ProductController() {
         this.productService = new ProductServiceImpl();
-        this.productTable = new ProductTable();
+        this.productTable = new CreateProductTable();
         productTable.tableCreation();
     }
 
