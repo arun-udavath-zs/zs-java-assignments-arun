@@ -15,8 +15,8 @@ public class RandomFunctionsGenerator {
         StringBuilder buffer = new StringBuilder();
 
         for (int i = 0; i < 10; i++) {
-            int rand = (int) (Math.random() * 26);
-            buffer.append(str.charAt(rand));
+            int random = (int) (Math.random() * 26);
+            buffer.append(str.charAt(random));
         }
         return buffer.toString();
     }
