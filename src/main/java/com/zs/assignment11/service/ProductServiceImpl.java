@@ -1,16 +1,17 @@
 package com.zs.assignment11.service;
 
-import com.zs.assignment11.exception.IdNotFoundException;
+import com.zs.assignment11.exception.ProductNotFoundException;
 import com.zs.assignment11.model.Product;
 import com.zs.assignment11.repository.ProductRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-@Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
+    private final static Logger log= LoggerFactory.getLogger(ProductServiceImpl.class);
     private final ProductRepository productRepository;
 
     ProductServiceImpl(ProductRepository productRepository) {
@@ -64,14 +65,14 @@ public class ProductServiceImpl implements ProductService {
     /**
      * to delete the product with given id
      * @param id delete the product with this id
-     * @throws IdNotFoundException throws exception if id does not exist
+     * @throws ProductNotFoundException throws exception if id does not exist
      */
     @Override
-    public void deleteProduct(int id) throws IdNotFoundException {
+    public void deleteProduct(int id) throws ProductNotFoundException {
         boolean exits = productRepository.existsById(id);
         if (!exits) {
             log.error("product with id " + id + " does not exists");
-            throw new IdNotFoundException("product with id " + id + " does not exists");
+            throw new ProductNotFoundException("product with id " + id + " does not exists");
         }
         productRepository.deleteById(id);
     }
@@ -79,14 +80,14 @@ public class ProductServiceImpl implements ProductService {
     /**
      * to update the product in the database
      * @param product product to update
-     * @throws IdNotFoundException throws exception if id does not exist
+     * @throws ProductNotFoundException throws exception if id does not exist
      */
     @Override
-    public void updateProduct(Product product) throws IdNotFoundException {
+    public void updateProduct(Product product) throws ProductNotFoundException {
         boolean exists = productRepository.existsById(product.getId());
         if (!exists) {
             log.error("product with id " + product.getId() + " does not exists");
-            throw new IdNotFoundException("product with id " + product.getId() + " does not exists");
+            throw new ProductNotFoundException("product with id " + product.getId() + " does not exists");
         }
         productRepository.save(product);
     }

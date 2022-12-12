@@ -1,9 +1,10 @@
 package com.zs.assignment11.controller;
 
-import com.zs.assignment11.exception.IdNotFoundException;
+import com.zs.assignment11.exception.ProductNotFoundException;
 import com.zs.assignment11.model.Product;
 import com.zs.assignment11.service.ProductService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Slf4j
 public class ProductController {
 
+    private final static Logger log= LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
 
     ProductController(ProductService productService) {
@@ -22,7 +23,7 @@ public class ProductController {
     }
 
     @GetMapping("/getAllProduct")
-    public ResponseEntity<List<Product>> getAllProduct() {
+    public ResponseEntity<List<Product>> getAllProducts() {
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 
@@ -45,13 +46,13 @@ public class ProductController {
     }
 
     @DeleteMapping("{id}")
-    public void deleteProduct(@PathVariable("id") int id) throws IdNotFoundException {
+    public void deleteProduct(@PathVariable("id") int id) throws ProductNotFoundException {
         log.info("to delete the product with id "+id);
         productService.deleteProduct(id);
     }
 
     @PutMapping
-    public void updateProduct(@RequestBody Product product) throws IdNotFoundException {
+    public void updateProduct(@RequestBody Product product) throws ProductNotFoundException {
         log.info("entered in update product");
         productService.updateProduct(product);
     }

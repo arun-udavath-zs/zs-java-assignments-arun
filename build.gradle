@@ -29,7 +29,14 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
 
+}
+
+configurations {
+    all*.exclude module: 'spring-boot-starter-logging'
+    all*.exclude module: "logback-classic"
 }
 
 test {
