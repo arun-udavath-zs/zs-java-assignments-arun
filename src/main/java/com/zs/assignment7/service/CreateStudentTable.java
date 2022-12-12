@@ -8,20 +8,20 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Student {
+public class CreateStudentTable {
 
-    private final static Logger logger = LoggerFactory.getLogger(Student.class);
+    private final static Logger logger = LoggerFactory.getLogger(CreateStudentTable.class);
     String createQuery = "CREATE TABLE IF NOT EXISTS students (id VARCHAR(10),first_name VARCHAR(50),last_name VARCHAR(50),mobile VARCHAR(50),departments VARCHAR(50))";
 
     public void createStudentTable() {
 
-        DatabaseConnection dbConn = new DatabaseConnection();
-        try (Connection connection = dbConn.dbConnection();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        try (Connection connection = databaseConnection.dbConnection();
              Statement statement = connection.createStatement()) {
              statement.executeUpdate(createQuery);
              logger.info("student table created successfully");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
         }
     }
 }

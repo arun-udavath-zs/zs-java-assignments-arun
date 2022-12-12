@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Department {
+public class AddDataIntoDepartmentTable {
 
-    private final static Logger logger = LoggerFactory.getLogger(Department.class);
+    private final static Logger logger = LoggerFactory.getLogger(AddDataIntoDepartmentTable.class);
     String createQuery = "CREATE TABLE IF NOT EXISTS departments (id VARCHAR(10),dept_name VARCHAR(50))";
     public static ArrayList<String> deptName = new ArrayList<>();
 
@@ -22,9 +22,9 @@ public class Department {
     public void InsertDataIntoDepartment() throws SQLException {
 
 
-        DatabaseConnection dbConn = new DatabaseConnection();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
 
-        try (Connection connection = dbConn.dbConnection();
+        try (Connection connection = databaseConnection.dbConnection();
              Statement statement = connection.createStatement();) {
 
             statement.executeUpdate(createQuery);
@@ -35,16 +35,16 @@ public class Department {
             statement.executeUpdate("INSERT INTO departments(id, dept_name) VALUES ('2','Mech')");
 
             PreparedStatement preparedstatement = connection.prepareStatement("select dept_name from departments");
-            ResultSet rs = preparedstatement.executeQuery();
+            ResultSet resultSet = preparedstatement.executeQuery();
 
-            while (rs.next()) {
-                String dept = rs.getString(1);
+            while (resultSet.next()) {
+                String dept = resultSet.getString(1);
                 deptName.add(dept);
             }
 
-        } catch (SQLException e) {
-            logger.error("exception occured " + e.getMessage());
-            throw new RuntimeException(e);
+        } catch (SQLException exception) {
+            logger.error("exception occured " + exception.getMessage());
+            throw new RuntimeException(exception);
         }
     }
 

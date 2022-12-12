@@ -12,9 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class FetchInformation {
+public class FetchDataFromDB {
 
-    private static final Logger logger = LoggerFactory.getLogger(FetchInformation.class);
+    private static final Logger logger = LoggerFactory.getLogger(FetchDataFromDB.class);
     String readQuery = "select * from students limit 50;";
 
     /**

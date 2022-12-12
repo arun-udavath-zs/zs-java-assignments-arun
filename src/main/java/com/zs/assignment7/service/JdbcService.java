@@ -4,25 +4,29 @@ import com.zs.assignment7.repository.DatabaseConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JdbcService {
 
     private final static Logger logger = LoggerFactory.getLogger(JdbcService.class);
+
+    private static final String path = "/home/lenovo/Documents/zs-java-assignments/src/main/resources/dataOutput.txt";
     String insertQuery = "INSERT INTO students (id,first_name,last_name,mobile,departments) VALUES (?,?,?,?,?)";
 
     /**
      * it will create the tables of students and departments
      *
      */
-    public void jdbc() {
+    public void insertDataStudentTable() {
 
         DatabaseConnection dbConn = new DatabaseConnection();
-        RandomFunctions randomFunctions = new RandomFunctions();
-        Department department = new Department();
-        Student student = new Student();
+        RandomFunctionsGenerator randomFunctions = new RandomFunctionsGenerator();
+        AddDataIntoDepartmentTable department = new AddDataIntoDepartmentTable();
+        CreateStudentTable student = new CreateStudentTable();
 
         try (Connection connection = dbConn.dbConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
@@ -31,15 +35,20 @@ public class JdbcService {
 
             for (int i = 1; i < 1000; i++) {
                 preparedStatement.setString(1, String.valueOf(i));
-                preparedStatement.setString(2, randomFunctions.generateName());
-                preparedStatement.setString(3, randomFunctions.generateName());
-                preparedStatement.setString(4, randomFunctions.generateMobile());
-                preparedStatement.setString(5, randomFunctions.generateDepartment(Department.deptName));
+                preparedStatement.setString(2, randomFunctions.generateRandomName());
+                preparedStatement.setString(3, randomFunctions.generateRandomName());
+                preparedStatement.setString(4, randomFunctions.generateRandomMobile());
+                preparedStatement.setString(5, randomFunctions.generateRandomDepartment(AddDataIntoDepartmentTable.deptName));
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
             logger.error("exception occured" + e.getMessage());
             e.printStackTrace();
         }
+    }
+    public void saveDataIntoFile() throws SQLException, IOException {
+        FetchDataFromDB fetch = new FetchDataFromDB();
+        ResultSet resultSet = fetch.readDataFromDatabase();
+        fetch.addDataIntoFile(resultSet,path);
     }
 }

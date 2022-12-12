@@ -3,13 +3,13 @@ package com.zs.assignment7.service;
 import java.util.List;
 import java.util.Random;
 
-public class RandomFunctions {
+public class RandomFunctionsGenerator {
     /**
      * used to generate a random name
      *
      * @return a random name
      */
-    public String generateName() {
+    public String generateRandomName() {
 
         String str = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder buffer = new StringBuilder();
@@ -26,7 +26,7 @@ public class RandomFunctions {
      *
      * @return a random number
      */
-    public String generateMobile() {
+    public String generateRandomMobile() {
 
         Random random = new Random();
         String num1, num2, num3,res;
@@ -40,12 +40,12 @@ public class RandomFunctions {
     /**
      * used to generate a random department
      *
-     * @param array list of department names
+     * @param departmentList list of department names
      * @return a random departments
      */
-    public String generateDepartment(List<String> array) {
+    public String generateRandomDepartment(List<String> departmentList) {
 
-        int rand = new Random().nextInt(array.size());
-        return array.get(rand);
+        int random = new Random().nextInt(departmentList.size());
+        return departmentList.get(random);
     }
 }

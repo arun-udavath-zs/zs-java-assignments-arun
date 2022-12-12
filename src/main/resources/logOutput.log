@@ -91,7 +91,7 @@
 2022-12-03 20:30:40 INFO  Student:19 - student table created successfully
 2022-12-03 20:31:06 INFO  DatabaseConnection:21 - database connected successfully
 2022-12-03 20:32:34 INFO  DatabaseConnection:21 - database connected successfully
-2022-12-03 20:32:34 INFO  DatabaseConnection:21 - database connected successfully
+2022-12-03 20:32:34 INFO  Databaprivate static final String path = "/home/lenovo/Documents/zs-java-assignments/src/main/resources/dataOutput.txt";seConnection:21 - database connected successfully
 2022-12-03 20:32:34 INFO  Department:31 - Created departments table in given database...
 2022-12-03 20:32:34 INFO  DatabaseConnection:21 - database connected successfully
 2022-12-03 20:32:38 INFO  Student:19 - student table created successfully
