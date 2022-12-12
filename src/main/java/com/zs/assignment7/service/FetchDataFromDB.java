@@ -20,13 +20,13 @@ public class FetchDataFromDB {
     /**
      * used to add the data into the file
      *
-     * @param resultSet it used the stored the fetched data from database
      * @param filePath  it is the path of the file used to store the data which is fetched
      * @throws SQLException throws exception when database connection fails
      * @throws IOException  throws exception when file doesn't exit
      */
-    public void addDataIntoFile(ResultSet resultSet, String filePath) throws SQLException, IOException {
+    public void addDataIntoFile(String filePath) throws SQLException, IOException {
 
+         ResultSet resultSet= readDataFromDatabase();
         try (FileWriter fileWriter = new FileWriter(filePath, false)) {
 
             while (resultSet.next()) {
@@ -41,6 +41,9 @@ public class FetchDataFromDB {
                 fileWriter.write("\n");
             }
         }
+        finally {
+            resultSet.close();
+        }
 
     }
 
@@ -52,16 +55,17 @@ public class FetchDataFromDB {
      */
     public ResultSet readDataFromDatabase() {
 
-        DatabaseConnection dbConn = new DatabaseConnection();
-
-        try (Connection connection = dbConn.dbConnection();
-             PreparedStatement statement = connection.prepareStatement(readQuery);) {
-            ResultSet resultSet = statement.executeQuery();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        PreparedStatement preparedStatement;
+        try (Connection connection = databaseConnection.dbConnection()) {
+            preparedStatement = connection.prepareStatement(readQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();
             logger.info("Data fetched successfully from table");
             return resultSet;
         } catch (SQLException e) {
             logger.error("exception occured :" + e.getMessage());
             throw new RuntimeException(e);
         }
+
     }
 }

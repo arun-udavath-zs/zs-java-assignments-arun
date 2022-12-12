@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JdbcService {
@@ -23,12 +22,12 @@ public class JdbcService {
      */
     public void insertDataStudentTable() {
 
-        DatabaseConnection dbConn = new DatabaseConnection();
+        DatabaseConnection databaseConnection = new DatabaseConnection();
         RandomFunctionsGenerator randomFunctions = new RandomFunctionsGenerator();
         AddDataIntoDepartmentTable department = new AddDataIntoDepartmentTable();
         CreateStudentTable student = new CreateStudentTable();
 
-        try (Connection connection = dbConn.dbConnection();
+        try (Connection connection = databaseConnection.dbConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
              department.InsertDataIntoDepartment();
              student.createStudentTable();
@@ -41,14 +40,13 @@ public class JdbcService {
                 preparedStatement.setString(5, randomFunctions.generateRandomDepartment(AddDataIntoDepartmentTable.deptName));
                 preparedStatement.executeUpdate();
             }
-        } catch (SQLException e) {
-            logger.error("exception occured" + e.getMessage());
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            logger.error("exception occured" + exception.getMessage());
+            exception.printStackTrace();
         }
     }
     public void saveDataIntoFile() throws SQLException, IOException {
         FetchDataFromDB fetch = new FetchDataFromDB();
-        ResultSet resultSet = fetch.readDataFromDatabase();
-        fetch.addDataIntoFile(resultSet,path);
+        fetch.addDataIntoFile(path);
     }
 }

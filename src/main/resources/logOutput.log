@@ -137,3 +137,80 @@
 2022-12-09 10:04:29 INFO  Student:20 - student table created successfully
 2022-12-09 10:04:29 INFO  DatabaseConnection:27 - database connected successfully
 2022-12-09 10:04:29 INFO  FetchInformation:62 - Data fetched successfully from table
+2022-12-12 16:48:26 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:48:26 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:48:26 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 16:48:27 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:48:27 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 16:48:27 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:48:27 INFO  FetchDataFromDB:60 - Data fetched successfully from table
+2022-12-12 16:48:34 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:48:34 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:48:34 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 16:48:34 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:48:34 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 16:48:34 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:48:34 INFO  FetchDataFromDB:60 - Data fetched successfully from table
+2022-12-12 16:57:06 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:57:07 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:57:07 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 16:57:07 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:57:07 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 16:57:07 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:57:07 INFO  FetchDataFromDB:61 - Data fetched successfully from table
+2022-12-12 16:57:15 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:57:15 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:57:15 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 16:57:15 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:57:15 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 16:57:15 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:57:15 INFO  FetchDataFromDB:61 - Data fetched successfully from table
+2022-12-12 16:59:22 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:59:22 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:59:22 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 16:59:22 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:59:22 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 16:59:23 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 16:59:23 INFO  FetchDataFromDB:61 - Data fetched successfully from table
+2022-12-12 17:01:57 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:01:57 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:01:57 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 17:01:57 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:01:57 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 17:01:57 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:01:57 INFO  FetchDataFromDB:61 - Data fetched successfully from table
+2022-12-12 17:02:03 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:02:03 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:02:03 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 17:02:03 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:02:03 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 17:02:04 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:02:04 INFO  FetchDataFromDB:61 - Data fetched successfully from table
+2022-12-12 17:02:37 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:02:37 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:02:37 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 17:02:37 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:02:37 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 17:02:38 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:02:38 INFO  FetchDataFromDB:61 - Data fetched successfully from table
+2022-12-12 17:06:04 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:06:04 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:06:04 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 17:06:04 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:06:04 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 17:06:05 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:06:05 INFO  FetchDataFromDB:60 - Data fetched successfully from table
+2022-12-12 17:06:08 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:06:08 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:06:08 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 17:06:08 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:06:08 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 17:06:09 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:06:09 INFO  FetchDataFromDB:60 - Data fetched successfully from table
+2022-12-12 17:08:13 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:08:13 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:08:13 INFO  AddDataIntoDepartmentTable:31 - Created departments table in given database...
+2022-12-12 17:08:13 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:08:13 INFO  CreateStudentTable:22 - student table created successfully
+2022-12-12 17:08:13 INFO  DatabaseConnection:28 - database connected successfully
+2022-12-12 17:08:13 INFO  FetchDataFromDB:63 - Data fetched successfully from table
