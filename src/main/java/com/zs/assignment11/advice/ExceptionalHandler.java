@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestControllerAdvice
 public class ExceptionalHandler {
-    @ResponseStatus(INTERNAL_SERVER_ERROR)
+    @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(ProductNotFoundException.class)
-    public Map<String, String> handleProductIdNotFoundException(ProductNotFoundException exception) {
+    public Map<String, String> handleProductNotFoundException(ProductNotFoundException exception) {
 
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", exception.getMessage());

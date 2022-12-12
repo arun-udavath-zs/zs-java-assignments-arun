@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class ProductServiceImpl implements ProductService {
-    private final static Logger log= LoggerFactory.getLogger(ProductServiceImpl.class);
+    private final static Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
     private final ProductRepository productRepository;
 
     ProductServiceImpl(ProductRepository productRepository) {
@@ -20,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * to fetch all products in the database
+     *
      * @return list of all products
      */
     @Override
@@ -29,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * to fetch the product by id
+     *
      * @param id to fetch the product with unique id
      * @return product with the given id
      */
@@ -37,8 +40,14 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findById(id).get();
     }
 
+    @Override
+    public List<String> getAllCategories() {
+        return productRepository.getAllCategories();
+    }
+
     /**
      * to fetch the product with given category
+     *
      * @param category to fetch the products with given category
      * @return list of products with given category
      */
@@ -49,6 +58,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * to add the product in the database
+     *
      * @param product a product to add in database
      * @return a saved product
      */
@@ -64,6 +74,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * to delete the product with given id
+     *
      * @param id delete the product with this id
      * @throws ProductNotFoundException throws exception if id does not exist
      */
@@ -79,6 +90,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * to update the product in the database
+     *
      * @param product product to update
      * @throws ProductNotFoundException throws exception if id does not exist
      */

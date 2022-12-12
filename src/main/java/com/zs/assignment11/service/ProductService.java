@@ -10,6 +10,8 @@ public interface ProductService {
 
     Product getProductById(int id);
 
+    List<String> getAllCategories();
+
     List<Product> getProductByCategory(String category);
 
     Product saveProduct(Product product);

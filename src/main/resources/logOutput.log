@@ -2495,3 +2495,213 @@ Caused by: java.lang.NullPointerException
 2022-12-12 15:19:01 INFO  DocumentationPluginsBootstrapper:150 - Found 1 custom documentation plugin(s)
 2022-12-12 15:19:01 INFO  ApiListingReferenceScanner:41 - Scanning for api listing references
 2022-12-12 15:19:01 INFO  SpringBoot:61 - Started SpringBoot in 2.801 seconds (JVM running for 3.042)
+2022-12-12 18:22:12 INFO  SpringBoot:55 - Starting SpringBoot using Java 1.8.0_352 on lenovo-ThinkPad-L14-Gen-2 with PID 33735 (/home/lenovo/Documents/zs-java-assignments/build/classes/java/main started by lenovo in /home/lenovo/Documents/zs-java-assignments)
+2022-12-12 18:22:12 INFO  SpringBoot:631 - No active profile set, falling back to 1 default profile: "default"
+2022-12-12 18:22:13 INFO  RepositoryConfigurationDelegate:132 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-12 18:22:13 INFO  RepositoryConfigurationDelegate:201 - Finished Spring Data repository scanning in 30 ms. Found 1 JPA repository interfaces.
+2022-12-12 18:22:13 INFO  TomcatWebServer:108 - Tomcat initialized with port(s): 8080 (http)
+2022-12-12 18:22:13 INFO  ServletWebServerApplicationContext:292 - Root WebApplicationContext: initialization completed in 1049 ms
+2022-12-12 18:22:14 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-12 18:22:14 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.6.14.Final
+2022-12-12 18:22:14 INFO  Version:56 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-12-12 18:22:14 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-12-12 18:22:14 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-12-12 18:22:14 INFO  Dialect:175 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-12 18:22:14 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-12 18:22:14 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 18:22:15 WARN  JpaBaseConfiguration$JpaWebConfiguration:219 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-12 18:22:15 INFO  PropertySourcedRequestMappingHandlerMapping:69 - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-12-12 18:22:15 WARN  AnnotationConfigServletWebServerApplicationContext:591 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2022-12-12 18:22:15 INFO  LocalContainerEntityManagerFactoryBean:651 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 18:22:15 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-12-12 18:22:15 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-12-12 18:22:15 INFO  ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-12-12 18:22:15 ERROR LoggingFailureAnalysisReporter:40 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2022-12-12 18:22:21 INFO  SpringBoot:55 - Starting SpringBoot using Java 1.8.0_352 on lenovo-ThinkPad-L14-Gen-2 with PID 33898 (/home/lenovo/Documents/zs-java-assignments/build/classes/java/main started by lenovo in /home/lenovo/Documents/zs-java-assignments)
+2022-12-12 18:22:21 INFO  SpringBoot:631 - No active profile set, falling back to 1 default profile: "default"
+2022-12-12 18:22:21 INFO  RepositoryConfigurationDelegate:132 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-12 18:22:21 INFO  RepositoryConfigurationDelegate:201 - Finished Spring Data repository scanning in 23 ms. Found 1 JPA repository interfaces.
+2022-12-12 18:22:22 INFO  TomcatWebServer:108 - Tomcat initialized with port(s): 8080 (http)
+2022-12-12 18:22:22 INFO  ServletWebServerApplicationContext:292 - Root WebApplicationContext: initialization completed in 935 ms
+2022-12-12 18:22:22 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-12 18:22:22 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.6.14.Final
+2022-12-12 18:22:22 INFO  Version:56 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-12-12 18:22:22 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-12-12 18:22:22 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-12-12 18:22:22 INFO  Dialect:175 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-12 18:22:23 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-12 18:22:23 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 18:22:23 WARN  JpaBaseConfiguration$JpaWebConfiguration:219 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-12 18:22:23 INFO  PropertySourcedRequestMappingHandlerMapping:69 - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-12-12 18:22:23 WARN  AnnotationConfigServletWebServerApplicationContext:591 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2022-12-12 18:22:23 INFO  LocalContainerEntityManagerFactoryBean:651 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 18:22:23 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-12-12 18:22:23 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-12-12 18:22:23 INFO  ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-12-12 18:22:23 ERROR LoggingFailureAnalysisReporter:40 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2022-12-12 18:27:18 INFO  SpringBoot:55 - Starting SpringBoot using Java 1.8.0_352 on lenovo-ThinkPad-L14-Gen-2 with PID 34436 (/home/lenovo/Documents/zs-java-assignments/build/classes/java/main started by lenovo in /home/lenovo/Documents/zs-java-assignments)
+2022-12-12 18:27:18 INFO  SpringBoot:631 - No active profile set, falling back to 1 default profile: "default"
+2022-12-12 18:27:19 INFO  RepositoryConfigurationDelegate:132 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-12 18:27:19 INFO  RepositoryConfigurationDelegate:201 - Finished Spring Data repository scanning in 54 ms. Found 1 JPA repository interfaces.
+2022-12-12 18:27:20 INFO  TomcatWebServer:108 - Tomcat initialized with port(s): 8081 (http)
+2022-12-12 18:27:20 INFO  ServletWebServerApplicationContext:292 - Root WebApplicationContext: initialization completed in 2043 ms
+2022-12-12 18:27:21 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-12 18:27:21 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.6.14.Final
+2022-12-12 18:27:21 INFO  Version:56 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-12-12 18:27:21 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-12-12 18:27:21 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-12-12 18:27:21 INFO  Dialect:175 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-12 18:27:22 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-12 18:27:22 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 18:27:23 WARN  JpaBaseConfiguration$JpaWebConfiguration:219 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-12 18:27:23 INFO  PropertySourcedRequestMappingHandlerMapping:69 - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-12-12 18:27:23 INFO  TomcatWebServer:220 - Tomcat started on port(s): 8081 (http) with context path ''
+2022-12-12 18:27:23 INFO  DocumentationPluginsBootstrapper:147 - Context refreshed
+2022-12-12 18:27:23 INFO  DocumentationPluginsBootstrapper:150 - Found 1 custom documentation plugin(s)
+2022-12-12 18:27:23 INFO  ApiListingReferenceScanner:41 - Scanning for api listing references
+2022-12-12 18:27:24 INFO  SpringBoot:61 - Started SpringBoot in 5.972 seconds (JVM running for 6.512)
+2022-12-12 18:28:08 INFO  LocalContainerEntityManagerFactoryBean:651 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 18:28:08 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-12-12 18:28:08 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-12-12 18:28:34 INFO  SpringBoot:55 - Starting SpringBoot using Java 1.8.0_352 on lenovo-ThinkPad-L14-Gen-2 with PID 34977 (/home/lenovo/Documents/zs-java-assignments/build/classes/java/main started by lenovo in /home/lenovo/Documents/zs-java-assignments)
+2022-12-12 18:28:34 INFO  SpringBoot:631 - No active profile set, falling back to 1 default profile: "default"
+2022-12-12 18:28:34 INFO  RepositoryConfigurationDelegate:132 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-12 18:28:34 INFO  RepositoryConfigurationDelegate:201 - Finished Spring Data repository scanning in 23 ms. Found 1 JPA repository interfaces.
+2022-12-12 18:28:34 INFO  TomcatWebServer:108 - Tomcat initialized with port(s): 8081 (http)
+2022-12-12 18:28:35 INFO  ServletWebServerApplicationContext:292 - Root WebApplicationContext: initialization completed in 856 ms
+2022-12-12 18:28:35 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-12 18:28:35 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.6.14.Final
+2022-12-12 18:28:35 INFO  Version:56 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-12-12 18:28:35 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-12-12 18:28:35 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-12-12 18:28:35 INFO  Dialect:175 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-12 18:28:35 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-12 18:28:35 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 18:28:36 WARN  JpaBaseConfiguration$JpaWebConfiguration:219 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-12 18:28:36 INFO  TomcatWebServer:220 - Tomcat started on port(s): 8081 (http) with context path ''
+2022-12-12 18:28:36 INFO  SpringBoot:61 - Started SpringBoot in 2.477 seconds (JVM running for 2.672)
+2022-12-12 18:30:08 INFO  DispatcherServlet:525 - Initializing Servlet 'dispatcherServlet'
+2022-12-12 18:30:08 INFO  DispatcherServlet:547 - Completed initialization in 1 ms
+2022-12-12 18:30:08 INFO  ProductController:48 - entered in addProduct
+2022-12-12 18:30:23 INFO  ProductController:48 - entered in addProduct
+2022-12-12 18:31:33 INFO  ProductController:48 - entered in addProduct
+2022-12-12 18:31:52 INFO  ProductController:48 - entered in addProduct
+2022-12-12 21:39:45 INFO  SpringBoot:55 - Starting SpringBoot using Java 1.8.0_352 on lenovo-ThinkPad-L14-Gen-2 with PID 40362 (/home/lenovo/Documents/zs-java-assignments/build/classes/java/main started by lenovo in /home/lenovo/Documents/zs-java-assignments)
+2022-12-12 21:39:45 INFO  SpringBoot:631 - No active profile set, falling back to 1 default profile: "default"
+2022-12-12 21:39:46 INFO  RepositoryConfigurationDelegate:132 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-12 21:39:46 INFO  RepositoryConfigurationDelegate:201 - Finished Spring Data repository scanning in 28 ms. Found 1 JPA repository interfaces.
+2022-12-12 21:39:46 INFO  TomcatWebServer:108 - Tomcat initialized with port(s): 8081 (http)
+2022-12-12 21:39:46 INFO  ServletWebServerApplicationContext:292 - Root WebApplicationContext: initialization completed in 962 ms
+2022-12-12 21:39:47 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-12 21:39:47 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.6.14.Final
+2022-12-12 21:39:47 INFO  Version:56 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-12-12 21:39:47 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-12-12 21:39:47 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-12-12 21:39:47 INFO  Dialect:175 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-12 21:39:47 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-12 21:39:47 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 21:39:48 WARN  JpaBaseConfiguration$JpaWebConfiguration:219 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-12 21:39:48 WARN  AnnotationConfigServletWebServerApplicationContext:591 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8081 is already in use
+2022-12-12 21:39:48 INFO  LocalContainerEntityManagerFactoryBean:651 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 21:39:48 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-12-12 21:39:48 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-12-12 21:39:48 INFO  ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-12-12 21:39:48 ERROR LoggingFailureAnalysisReporter:40 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2022-12-12 21:39:54 INFO  SpringBoot:55 - Starting SpringBoot using Java 1.8.0_352 on lenovo-ThinkPad-L14-Gen-2 with PID 40525 (/home/lenovo/Documents/zs-java-assignments/build/classes/java/main started by lenovo in /home/lenovo/Documents/zs-java-assignments)
+2022-12-12 21:39:54 INFO  SpringBoot:631 - No active profile set, falling back to 1 default profile: "default"
+2022-12-12 21:39:55 INFO  RepositoryConfigurationDelegate:132 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-12 21:39:55 INFO  RepositoryConfigurationDelegate:201 - Finished Spring Data repository scanning in 33 ms. Found 1 JPA repository interfaces.
+2022-12-12 21:39:55 INFO  TomcatWebServer:108 - Tomcat initialized with port(s): 8081 (http)
+2022-12-12 21:39:55 INFO  ServletWebServerApplicationContext:292 - Root WebApplicationContext: initialization completed in 844 ms
+2022-12-12 21:39:55 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-12 21:39:55 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.6.14.Final
+2022-12-12 21:39:55 INFO  Version:56 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-12-12 21:39:55 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-12-12 21:39:56 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-12-12 21:39:56 INFO  Dialect:175 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-12 21:39:56 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-12 21:39:56 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 21:39:56 WARN  JpaBaseConfiguration$JpaWebConfiguration:219 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-12 21:39:56 WARN  AnnotationConfigServletWebServerApplicationContext:591 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8081 is already in use
+2022-12-12 21:39:56 INFO  LocalContainerEntityManagerFactoryBean:651 - Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 21:39:56 INFO  HikariDataSource:350 - HikariPool-1 - Shutdown initiated...
+2022-12-12 21:39:56 INFO  HikariDataSource:352 - HikariPool-1 - Shutdown completed.
+2022-12-12 21:39:56 INFO  ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-12-12 21:39:57 ERROR LoggingFailureAnalysisReporter:40 - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2022-12-12 21:40:52 INFO  SpringBoot:55 - Starting SpringBoot using Java 1.8.0_352 on lenovo-ThinkPad-L14-Gen-2 with PID 40730 (/home/lenovo/Documents/zs-java-assignments/build/classes/java/main started by lenovo in /home/lenovo/Documents/zs-java-assignments)
+2022-12-12 21:40:52 INFO  SpringBoot:631 - No active profile set, falling back to 1 default profile: "default"
+2022-12-12 21:40:52 INFO  RepositoryConfigurationDelegate:132 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-12 21:40:52 INFO  RepositoryConfigurationDelegate:201 - Finished Spring Data repository scanning in 25 ms. Found 1 JPA repository interfaces.
+2022-12-12 21:40:53 INFO  TomcatWebServer:108 - Tomcat initialized with port(s): 8082 (http)
+2022-12-12 21:40:53 INFO  ServletWebServerApplicationContext:292 - Root WebApplicationContext: initialization completed in 910 ms
+2022-12-12 21:40:53 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-12 21:40:53 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.6.14.Final
+2022-12-12 21:40:53 INFO  Version:56 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-12-12 21:40:53 INFO  HikariDataSource:110 - HikariPool-1 - Starting...
+2022-12-12 21:40:53 INFO  HikariDataSource:123 - HikariPool-1 - Start completed.
+2022-12-12 21:40:53 INFO  Dialect:175 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-12-12 21:40:53 INFO  JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-12 21:40:53 INFO  LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-12 21:40:54 WARN  JpaBaseConfiguration$JpaWebConfiguration:219 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-12 21:40:54 INFO  TomcatWebServer:220 - Tomcat started on port(s): 8082 (http) with context path ''
+2022-12-12 21:40:54 INFO  SpringBoot:61 - Started SpringBoot in 2.455 seconds (JVM running for 2.679)
