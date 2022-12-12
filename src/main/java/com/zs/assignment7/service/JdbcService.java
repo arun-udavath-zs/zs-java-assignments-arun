@@ -20,7 +20,7 @@ public class JdbcService {
      * it will create the tables of students and departments
      *
      */
-    public void insertDataStudentTable() {
+    public void insertDataIntoStudentTable() {
 
         DatabaseConnection databaseConnection = new DatabaseConnection();
         RandomFunctionsGenerator randomFunctions = new RandomFunctionsGenerator();

@@ -1,10 +1,8 @@
 package com.zs.assignment7.controller;
 
-import com.zs.assignment7.service.FetchDataFromDB;
 import com.zs.assignment7.service.JdbcService;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class JdbcController {
@@ -12,7 +10,7 @@ public class JdbcController {
     public void controller() throws SQLException, IOException {
 
         JdbcService service = new JdbcService();
-        service.insertDataStudentTable();
+        service.insertDataIntoStudentTable();
         service.saveDataIntoFile();
     }
 }
