@@ -1,13 +1,12 @@
 package com.zs.assignment9;
 
+import com.zs.assignment9.dao.StudentDAOImpl;
+import com.zs.assignment9.exception.BadRequestException;
 import com.zs.assignment9.model.Student;
-import com.zs.assignment9.repository.StudentDAOImpl;
 import com.zs.assignment9.service.StudentServiceImpl;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,11 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 @ExtendWith(MockitoExtension.class)
 class StudentServiceTest {
@@ -31,40 +25,58 @@ class StudentServiceTest {
     @InjectMocks
     private StudentServiceImpl studentService;
 
-    static Stream<Arguments> args_sum_exceptions() {
-        return Stream.of(
-                arguments(1, null, "ram"),
-                arguments(1, "sam", null)
-        );
-    }
 
     @Test
-    void addStudent() throws Exception {
+    void testAddStudent() throws BadRequestException {
         Student dummyStudent = new Student(1, "sam", "ram");
         Mockito.when(studentDAO.addStudent(Mockito.anyInt(), Mockito.anyString(),
                 Mockito.anyString())).thenReturn(dummyStudent);
         Student actualStudent = studentService.addStudent(1, "sam", "ram");
-        assertEquals("sam", actualStudent.getFirstName());
+        Assertions.assertEquals("sam", actualStudent.getFirstName());
 
     }
 
     @Test
-    void getStudent() {
+    void testGetStudent() throws BadRequestException {
         Student dummyStudent = new Student(1, "rakesh", "kucharla");
 
         Mockito.when(studentDAO.fetchStudentById(Mockito.anyInt())).thenReturn(dummyStudent);
         Student actualStudent = studentService.getStudent(1);
-        assertEquals("rakesh", actualStudent.getFirstName());
+        Assertions.assertEquals("rakesh", actualStudent.getFirstName());
     }
 
-    @ParameterizedTest
-    @MethodSource("args_sum_exceptions")
-    void test_sum_exceptions(int id, String firstName, String lastName) throws Exception {
-        try {
-            Student student = studentService.addStudent(id, firstName, lastName);
-            fail("Wasn't expecting a result!!!!");
-        } catch (StudentServiceImpl.ServiceException e) {
-            logger.error(e.getMessage());
-        }
+    @Test
+    void testGetStudentException(){
+        BadRequestException exception= Assertions.assertThrows(BadRequestException.class,()->{
+            studentService.getStudent(-1);
+        });
+        Assertions.assertEquals("id is not valid",exception.getMessage());
     }
+
+    @Test
+    void testAddStudentIdException(){
+        BadRequestException exception= Assertions.assertThrows(BadRequestException.class,()->{
+            studentService.addStudent(-1,"sam","ram");
+        });
+        Assertions.assertEquals("id is not valid",exception.getMessage());
+    }
+
+    @Test
+    void testAddStudentFirstNameException(){
+        BadRequestException exception= Assertions.assertThrows(BadRequestException.class,()->{
+            studentService.addStudent(1,null,"ram");
+        });
+        Assertions.assertEquals("First name is null",exception.getMessage());
+    }
+
+    @Test
+    void testAddStudentLastNameException(){
+        BadRequestException exception= Assertions.assertThrows(BadRequestException.class,()->{
+            studentService.addStudent(1,"sam",null);
+        });
+        Assertions.assertEquals("Last name is null",exception.getMessage());
+    }
+
+
+
 }

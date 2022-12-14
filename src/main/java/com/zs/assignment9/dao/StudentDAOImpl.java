@@ -1,4 +1,4 @@
-package com.zs.assignment9.repository;
+package com.zs.assignment9.dao;
 
 
 import com.zs.assignment9.model.Student;
@@ -10,7 +10,10 @@ import java.util.List;
 
 public class StudentDAOImpl implements StudentDAO {
     private static final Logger logger = LoggerFactory.getLogger(StudentDAOImpl.class);
-    private final List<Student> studentList = new ArrayList<>();
+    private final List<Student> studentList;
+    public StudentDAOImpl(){
+        studentList = new ArrayList<>();
+    }
 
     @Override
     public Student addStudent(int id, String firstName, String lastName) {
@@ -22,7 +25,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Student fetchStudentById(int id) {
-        return studentList.get(id - 1);
+        return studentList.get(id-1);
     }
 
     public void initialData() {

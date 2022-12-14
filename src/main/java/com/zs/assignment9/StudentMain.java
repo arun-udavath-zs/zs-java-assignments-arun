@@ -1,13 +1,13 @@
 package com.zs.assignment9;
 
-import com.zs.assignment9.controller.Controller;
+import com.zs.assignment9.controller.StudentController;
 
-public class UnitTesting {
+public class StudentMain {
     public static void main(String[] args) {
 
-        Controller c = new Controller();
+        StudentController controller = new StudentController();
         try {
-            c.studentController();
+            controller.start();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

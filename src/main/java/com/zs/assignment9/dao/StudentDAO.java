@@ -1,4 +1,4 @@
-package com.zs.assignment9.repository;
+package com.zs.assignment9.dao;
 
 import com.zs.assignment9.model.Student;
 
