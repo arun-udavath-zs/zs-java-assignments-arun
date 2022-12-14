@@ -1,11 +1,10 @@
-package com.zs.assignment7.service;
+package com.zs.assignment7.util;
 
-import java.util.List;
 import java.util.Random;
 
 public class RandomFunctionsGenerator {
     /**
-     * used to generate a random name
+     *This method is used to generate a random name
      *
      * @return a random name
      */
@@ -22,7 +21,7 @@ public class RandomFunctionsGenerator {
     }
 
     /**
-     * used to generate a random number
+     * This method is used to generate a random mobile number
      *
      * @return a random number
      */
@@ -37,15 +36,5 @@ public class RandomFunctionsGenerator {
         return res;
     }
 
-    /**
-     * used to generate a random department
-     *
-     * @param departmentList list of department names
-     * @return a random departments
-     */
-    public String generateRandomDepartment(List<String> departmentList) {
 
-        int random = new Random().nextInt(departmentList.size());
-        return departmentList.get(random);
-    }
 }
