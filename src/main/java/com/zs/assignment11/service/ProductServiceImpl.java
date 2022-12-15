@@ -1,6 +1,6 @@
 package com.zs.assignment11.service;
 
-import com.zs.assignment11.exception.ProductNotFoundException;
+import com.zs.assignment11.exception.BadRequestException;
 import com.zs.assignment11.model.Product;
 import com.zs.assignment11.repository.ProductRepository;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
-     * to fetch all products in the database
+     * This method is used to fetch all products in the database
      *
      * @return list of all products
      */
@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
-     * to fetch the product with given category
+     *This method is used to fetch the product with given category
      *
      * @param category to fetch the products with given category
      * @return list of products with given category
@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
-     * to add the product in the database
+     *This method is used to add the product in the database
      *
      * @param product a product to add in database
      * @return a saved product
@@ -73,33 +73,33 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
-     * to delete the product with given id
+     * This method is used to delete the product with given id
      *
      * @param id delete the product with this id
-     * @throws ProductNotFoundException throws exception if id does not exist
+     * @throws BadRequestException throws exception if id does not exist
      */
     @Override
-    public void deleteProduct(int id) throws ProductNotFoundException {
+    public void deleteProduct(int id) throws BadRequestException {
         boolean exits = productRepository.existsById(id);
         if (!exits) {
             log.error("product with id " + id + " does not exists");
-            throw new ProductNotFoundException("product with id " + id + " does not exists");
+            throw new BadRequestException("product with id " + id + " does not exists");
         }
         productRepository.deleteById(id);
     }
 
     /**
-     * to update the product in the database
+     * This method used to update the product in the database
      *
      * @param product product to update
-     * @throws ProductNotFoundException throws exception if id does not exist
+     * @throws BadRequestException throws exception if id does not exist
      */
     @Override
-    public void updateProduct(Product product) throws ProductNotFoundException {
+    public void updateProduct(Product product) throws BadRequestException {
         boolean exists = productRepository.existsById(product.getId());
         if (!exists) {
             log.error("product with id " + product.getId() + " does not exists");
-            throw new ProductNotFoundException("product with id " + product.getId() + " does not exists");
+            throw new BadRequestException("product with id " + product.getId() + " does not exists");
         }
         productRepository.save(product);
     }

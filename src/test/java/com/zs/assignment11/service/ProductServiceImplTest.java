@@ -22,28 +22,28 @@ class ProductServiceImplTest {
     private ProductServiceImpl productServiceImpl;
 
     @Test
-    void testGetAllProducts() {
+    void getAllProducts() {
         Mockito.when(productRepository.findAll()).thenReturn(dummyProductList());
         List<Product> actualResult= productServiceImpl.getAllProducts();
         assertEquals("redmi",actualResult.get(0).getProductName());
     }
 
     @Test
-    void testGetProductById() {
+    void getProductById() {
         Mockito.when(productRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(dummyProduct()));
         Product actualResult= productServiceImpl.getProductById(1);
         assertEquals("redmi",actualResult.getProductName());
     }
 
     @Test
-    void testGetAllCategories() {
+    void getAllCategories() {
         Mockito.when(productRepository.getAllCategories()).thenReturn(dummyCategory());
         List<String> actualResult= productServiceImpl.getAllCategories();
         assertEquals(2,actualResult.size());
     }
 
     @Test
-    void testGetProductByCategory() {
+    void getProductByCategory() {
         Mockito.when(productRepository.getProductByCategory(Mockito.anyString())).thenReturn(dummyProductList());
         List<Product> actualResult= productServiceImpl.getProductByCategory("Mobile");
         assertEquals(1,actualResult.size());
@@ -51,7 +51,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testSaveProduct() {
+    void saveProduct() {
         Mockito.when(productRepository.save(Mockito.any(Product.class))).thenReturn(dummyProduct());
         Product actualProduct= productServiceImpl.saveProduct(new Product(1,"iphone","Mobiles",120000));
         assertEquals("redmi",actualProduct.getProductName());

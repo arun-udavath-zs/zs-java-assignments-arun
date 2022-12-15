@@ -1,6 +1,6 @@
 package com.zs.assignment11.controller;
 
-import com.zs.assignment11.exception.ProductNotFoundException;
+import com.zs.assignment11.exception.BadRequestException;
 import com.zs.assignment11.model.Product;
 import com.zs.assignment11.service.ProductService;
 import org.slf4j.Logger;
@@ -51,13 +51,13 @@ public class ProductController {
     }
 
     @DeleteMapping("products/{id}")
-    public void deleteProduct(@PathVariable("id") int id) throws ProductNotFoundException {
+    public void deleteProduct(@PathVariable("id") int id) throws BadRequestException {
         log.info("to delete the product with id " + id);
         productService.deleteProduct(id);
     }
 
     @PutMapping("/products")
-    public void updateProduct(@RequestBody Product product) throws ProductNotFoundException {
+    public void updateProduct(@RequestBody Product product) throws BadRequestException {
         log.info("entered in update product");
         productService.updateProduct(product);
     }
