@@ -1,6 +1,6 @@
 package com.zs.assignment7.dao;
 
-import com.zs.assignment7.exception.DatabaseConnectionFailedException;
+import com.zs.assignment7.exception.InternalServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,16 +18,16 @@ public class ConnectionManager {
     /**
      * This method is used to establish a connection with database
      * @return connection variable
-     * @throws DatabaseConnectionFailedException
+     * @throws InternalServerException
      */
-    public Connection dbConnection() throws DatabaseConnectionFailedException {
+    public Connection getDbConnection() throws InternalServerException {
 
         try {
           Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
             logger.info("database connected successfully");
             return connection;
         } catch (SQLException exception) {
-            throw new DatabaseConnectionFailedException("Database connection error."+ exception.getMessage());
+            throw new InternalServerException("Database connection error."+ exception.getMessage());
         }
     }
 }
