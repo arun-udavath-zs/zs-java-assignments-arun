@@ -10,7 +10,7 @@ import java.util.List;
 public class ResultToProductConversion {
     List<Product> productList = new ArrayList<>();
 
-    public List<Product> listConversion(ResultSet resultSet) throws SQLException {
+    public List<Product> toListConversion(ResultSet resultSet) throws SQLException {
         while (resultSet.next()) {
             Product product = new Product();
             product.setId(resultSet.getInt("id"));
@@ -21,7 +21,7 @@ public class ResultToProductConversion {
         return productList;
     }
 
-    public Product productConversion(ResultSet resultSet) throws SQLException {
+    public Product toProductConversion(ResultSet resultSet) throws SQLException {
         Product product = new Product();
         while (resultSet.next()) {
             product.setId(resultSet.getInt("id"));

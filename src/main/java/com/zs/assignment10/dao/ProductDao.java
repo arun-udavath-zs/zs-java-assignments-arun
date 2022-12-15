@@ -1,4 +1,4 @@
-package com.zs.assignment10.service;
+package com.zs.assignment10.dao;
 
 import com.zs.assignment10.exception.DatabaseConnectionFailedException;
 import com.zs.assignment10.model.Product;
@@ -6,8 +6,7 @@ import com.zs.assignment10.model.Product;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface ProductService {
-
+public interface ProductDao {
     List<Product> findAll(String tableName) throws SQLException, DatabaseConnectionFailedException;
 
     Product findById(int id, String tableName) throws SQLException, DatabaseConnectionFailedException;
