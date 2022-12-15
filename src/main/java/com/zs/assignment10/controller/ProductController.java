@@ -1,7 +1,8 @@
 package com.zs.assignment10.controller;
 
-import com.zs.assignment10.exception.DatabaseConnectionFailedException;
-import com.zs.assignment10.exception.FilePathNotValidException;
+import com.zs.assignment10.exception.BadRequestException;
+import com.zs.assignment10.exception.FileException;
+import com.zs.assignment10.exception.InternalServerException;
 import com.zs.assignment10.model.Product;
 import com.zs.assignment10.service.ProductService;
 import com.zs.assignment10.service.ProductServiceImpl;
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,11 +21,6 @@ public class ProductController {
 
     public ProductController() {
         this.productService = new ProductServiceImpl();
-        try {
-            productService.tableCreation();
-        } catch (DatabaseConnectionFailedException e) {
-            logger.error("Something went wrong: " + e.getMessage());
-        }
     }
 
     public void start() {
@@ -33,6 +28,13 @@ public class ProductController {
         int id, price, choice;
         String productName, tableName, filePath;
         List<Product> productList;
+
+        try {
+            productService.createTable();
+        } catch (InternalServerException e) {
+            logger.error(e.getMessage());
+        }
+
 
         do {
             logger.info("Enter the choice of operation\n1. to get all the products\n2. to find the product" +
@@ -95,28 +97,30 @@ public class ProductController {
                         start();
 
                 }
-            } catch (DatabaseConnectionFailedException e) {
+            } catch (InternalServerException e) {
                 logger.error("Something went wrong: " + e.getMessage());
-            } catch (FilePathNotValidException e) {
+            } catch (FileException e) {
                 logger.error("Something went wrong: " + e.getMessage());
-            } catch (SQLException e) {
-                logger.error("Something went wrong: " + e.getMessage());
-            } catch (IOException e) {
-                logger.error("Something went wrong: " + e.getMessage());
+            } catch (BadRequestException e) {
+                logger.error("Something went Wrong :" + e.getMessage());
             }
         } while (choice != 7);
     }
 
-    public void saveToFile(List<Product> productList, String filePath) throws IOException, FilePathNotValidException {
+    public void saveToFile(List<Product> productList, String filePath) throws FileException {
         if (filePath == null) {
-            throw new FilePathNotValidException("File path provided is null");
+            throw new FileException("File path provided is null");
         }
 
         try (FileWriter fileWriter = new FileWriter(filePath, false)) {
             for (Product product : productList) {
                 fileWriter.write(product.toString() + "\n");
             }
+        } catch (IOException e) {
+            throw new FileException("error." + e.getMessage());
         }
 
     }
+
+
 }

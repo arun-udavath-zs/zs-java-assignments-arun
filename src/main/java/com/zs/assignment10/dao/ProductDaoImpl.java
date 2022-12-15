@@ -1,26 +1,47 @@
 package com.zs.assignment10.dao;
 
-import com.zs.assignment10.exception.DatabaseConnectionFailedException;
+import com.zs.assignment10.exception.InternalServerException;
 import com.zs.assignment10.model.Product;
-import com.zs.assignment10.util.ResultToProductConversion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class ProductDaoImpl implements ProductDao {
     private static final Logger logger = LoggerFactory.getLogger(ProductDaoImpl.class);
     private final ConnectionManager databaseConnection;
-    private final ResultToProductConversion resultToProductConversion;
+    private String dbUrl;
+    private String userName;
+    private String password;
 
     public ProductDaoImpl() {
         this.databaseConnection = new ConnectionManager();
-        this.resultToProductConversion = new ResultToProductConversion();
+        fetchProperties();
+    }
+
+    private void fetchProperties() {
+        Properties properties = new Properties();
+        FileInputStream fileInputStream;
+        try {
+            String homeDir = System.getProperty("user.dir");
+            fileInputStream = new FileInputStream(homeDir + "/src/main/resources/application.properties");
+            properties.load(fileInputStream);
+            dbUrl = properties.getProperty("DB_URL");
+            userName = properties.getProperty("USER");
+            password = properties.getProperty("PASSWORD");
+
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
     }
 
     /**
@@ -30,16 +51,16 @@ public class ProductDaoImpl implements ProductDao {
      * @return list of products in the database
      */
     @Override
-    public List<Product> findAll(String tableName) throws DatabaseConnectionFailedException {
-        String findAllQuery = "SELECT * FROM " + tableName + ";";
+    public List<Product> findAll(String tableName) throws InternalServerException {
+        String fetchAllQuery = "SELECT * FROM " + tableName + ";";
 
-        try (Connection connection = databaseConnection.getDbConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findAllQuery)) {
+        try (Connection connection = databaseConnection.getDbConnection(dbUrl, userName, password);
+             PreparedStatement preparedStatement = connection.prepareStatement(fetchAllQuery)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            return resultToProductConversion.toListConversion(resultSet);
+            return toListConversion(resultSet);
         } catch (SQLException e) {
-            throw new DatabaseConnectionFailedException("Database connection error." + e.getMessage());
+            throw new InternalServerException("error." + e.getMessage());
         }
     }
 
@@ -51,16 +72,16 @@ public class ProductDaoImpl implements ProductDao {
      * @return the product of given id
      */
     @Override
-    public Product findById(int id, String tableName) throws DatabaseConnectionFailedException {
-        String findByIdQuery = "SELECT * from " + tableName + " where id= " + id + ";";
+    public Product findById(int id, String tableName) throws InternalServerException {
+        String findQuery = "SELECT * from " + tableName + " where id= " + id + ";";
 
-        try (Connection connection = databaseConnection.getDbConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(findByIdQuery)) {
+        try (Connection connection = databaseConnection.getDbConnection(dbUrl, userName, password);
+             PreparedStatement preparedStatement = connection.prepareStatement(findQuery)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            return resultToProductConversion.toProductConversion(resultSet);
+            return toProductConversion(resultSet);
         } catch (SQLException e) {
-            throw new DatabaseConnectionFailedException("Database connection error." + e.getMessage());
+            throw new InternalServerException("Database connection error." + e.getMessage());
         }
 
     }
@@ -74,11 +95,11 @@ public class ProductDaoImpl implements ProductDao {
      * @param tableName   table name
      */
     @Override
-    public void insert(int id, String productName, int price, String tableName) throws DatabaseConnectionFailedException {
-        String addProductQuery = "INSERT INTO " + tableName + "(id,product_name,price) VALUES(?,?,?)";
+    public void insert(int id, String productName, int price, String tableName) throws InternalServerException {
+        String insertQuery = "INSERT INTO " + tableName + "(id,product_name,price) VALUES(?,?,?)";
 
-        try (Connection connection = databaseConnection.getDbConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(addProductQuery)) {
+        try (Connection connection = databaseConnection.getDbConnection(dbUrl, userName, password);
+             PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
 
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2, productName);
@@ -87,7 +108,7 @@ public class ProductDaoImpl implements ProductDao {
             logger.info("product added in the database successfully!!");
 
         } catch (SQLException e) {
-            throw new DatabaseConnectionFailedException("Database connection error." + e.getMessage());
+            throw new InternalServerException("Database connection error." + e.getMessage());
         }
 
     }
@@ -101,18 +122,18 @@ public class ProductDaoImpl implements ProductDao {
      * @param tableName   table name
      */
     @Override
-    public void update(int id, String productName, int price, String tableName) throws DatabaseConnectionFailedException {
-        String updateProductQuery = "UPDATE " + tableName + " SET product_name= ?, price= ? where id= " + id + ";";
+    public void update(int id, String productName, int price, String tableName) throws InternalServerException {
+        String updateQuery = "UPDATE " + tableName + " SET product_name= ?, price= ? where id= " + id + ";";
 
-        try (Connection connection = databaseConnection.getDbConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(updateProductQuery)) {
+        try (Connection connection = databaseConnection.getDbConnection(dbUrl, userName, password);
+             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
             preparedStatement.setString(1, productName);
             preparedStatement.setInt(2, price);
             preparedStatement.executeUpdate();
             logger.info("product updated in the database!!");
 
         } catch (SQLException e) {
-            throw new DatabaseConnectionFailedException("Database connection error." + e.getMessage());
+            throw new InternalServerException("Database connection error." + e.getMessage());
         }
 
     }
@@ -124,57 +145,81 @@ public class ProductDaoImpl implements ProductDao {
      * @param tableName table name
      */
     @Override
-    public void deleteById(int id, String tableName) throws DatabaseConnectionFailedException {
-        String updateProductQuery = "DELETE FROM " + tableName + " where id= " + id + ";";
+    public void deleteById(int id, String tableName) throws InternalServerException {
+        String deleteQuery = "DELETE FROM " + tableName + " where id= " + id + ";";
 
-        try (Connection connection = databaseConnection.getDbConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(updateProductQuery)) {
+        try (Connection connection = databaseConnection.getDbConnection(dbUrl, userName, password);
+             PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
 
             preparedStatement.executeUpdate();
             logger.info("product deleted successfully!!");
 
         } catch (SQLException e) {
-            throw new DatabaseConnectionFailedException("Database connection error." + e.getMessage());
+            throw new InternalServerException("Database connection error." + e.getMessage());
         }
 
     }
 
     /**
      * This method is used to check if the product exists with id
-     * @param id product id
+     *
+     * @param id        product id
      * @param tableName table name
      * @return
-     * @throws DatabaseConnectionFailedException
+     * @throws InternalServerException
      */
     @Override
-    public boolean exist(int id, String tableName) throws DatabaseConnectionFailedException {
+    public boolean exist(int id, String tableName) throws InternalServerException {
         String existQuery = "SELECT * FROM " + tableName + " where id=?";
-        try (Connection connection = databaseConnection.getDbConnection();
+        try (Connection connection = databaseConnection.getDbConnection(dbUrl, userName, password);
              PreparedStatement preparedStatement = connection.prepareStatement(existQuery)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) return true;
         } catch (SQLException e) {
-            throw new DatabaseConnectionFailedException("Database connection error." + e.getMessage());
+            throw new InternalServerException("Database connection error." + e.getMessage());
         }
         return false;
     }
 
     /**
      * This method is used to create the table
-     * @throws DatabaseConnectionFailedException
+     *
+     * @throws InternalServerException
      */
     @Override
-    public void tableCreation() throws DatabaseConnectionFailedException {
+    public void createTable() throws InternalServerException {
         ConnectionManager dbConnection = new ConnectionManager();
 
-        try (Connection connection = dbConnection.getDbConnection();
+        try (Connection connection = dbConnection.getDbConnection(dbUrl, userName, password);
              Statement statement = connection.createStatement()) {
             String createQuery = "CREATE TABLE IF NOT EXISTS products (id int, product_name VARCHAR(20), price int)";
             statement.executeUpdate(createQuery);
         } catch (SQLException e) {
-            throw new DatabaseConnectionFailedException("Database connection error." + e.getMessage());
+            throw new InternalServerException("Database connection error." + e.getMessage());
         }
 
+    }
+
+    private List<Product> toListConversion(ResultSet resultSet) throws SQLException {
+        List<Product> productList = new ArrayList<>();
+        while (resultSet.next()) {
+            Product product = new Product();
+            product.setId(resultSet.getInt("id"));
+            product.setProductName(resultSet.getString("product_name"));
+            product.setPrice(resultSet.getInt("price"));
+            productList.add(product);
+        }
+        return productList;
+    }
+
+    private Product toProductConversion(ResultSet resultSet) throws SQLException {
+        Product product = new Product();
+        while (resultSet.next()) {
+            product.setId(resultSet.getInt("id"));
+            product.setProductName(resultSet.getString("product_name"));
+            product.setPrice(resultSet.getInt("price"));
+        }
+        return product;
     }
 }

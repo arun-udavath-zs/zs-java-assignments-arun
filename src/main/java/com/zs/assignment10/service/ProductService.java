@@ -1,24 +1,24 @@
 package com.zs.assignment10.service;
 
-import com.zs.assignment10.exception.DatabaseConnectionFailedException;
+import com.zs.assignment10.exception.BadRequestException;
+import com.zs.assignment10.exception.InternalServerException;
 import com.zs.assignment10.model.Product;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface ProductService {
 
-    List<Product> findAll(String tableName) throws SQLException, DatabaseConnectionFailedException;
+    List<Product> findAll(String tableName) throws InternalServerException, BadRequestException;
 
-    Product findById(int id, String tableName) throws SQLException, DatabaseConnectionFailedException;
+    Product findById(int id, String tableName) throws InternalServerException, BadRequestException;
 
-    void insert(int id, String productName, int price, String tableName) throws SQLException, DatabaseConnectionFailedException;
+    void insert(int id, String productName, int price, String tableName) throws InternalServerException, BadRequestException;
 
-    void update(int id, String productName, int price, String tableName) throws SQLException, DatabaseConnectionFailedException;
+    void update(int id, String productName, int price, String tableName) throws InternalServerException, BadRequestException;
 
-    void deleteById(int id, String tableName) throws SQLException, DatabaseConnectionFailedException;
+    void deleteById(int id, String tableName) throws InternalServerException, BadRequestException;
 
-    boolean exist(int id, String tableName) throws DatabaseConnectionFailedException;
+    boolean exist(int id, String tableName) throws InternalServerException, BadRequestException;
 
-    void tableCreation() throws DatabaseConnectionFailedException;
+    void createTable() throws InternalServerException;
 }
