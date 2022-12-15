@@ -5,10 +5,11 @@ import com.zs.assignment9.exception.BadRequestException;
 import com.zs.assignment9.model.Student;
 
 public class StudentServiceImpl implements StudentService {
-    private final StudentDAOImpl studentDAO;
+    private StudentDAOImpl studentDAO;
 
     public StudentServiceImpl() {
         this.studentDAO = new StudentDAOImpl();
+        this.studentDAO.initialData();
     }
 
     /**
@@ -22,14 +23,8 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Student addStudent(int id, String firstName, String lastName) throws BadRequestException {
-        if(id < 0){
-            throw new BadRequestException("id is not valid");
-        }
-        if (firstName == null) {
-            throw new BadRequestException("First name is null");
-        }
-        if (lastName == null) {
-            throw new BadRequestException("Last name is null");
+        if(id < 0 || firstName == null || lastName == null){
+            throw new BadRequestException("input provided is not valid");
         }
         return studentDAO.addStudent(id, firstName, lastName);
     }
@@ -47,5 +42,4 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentDAO.fetchStudentById(id);
     }
-
 }

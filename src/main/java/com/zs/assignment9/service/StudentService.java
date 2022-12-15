@@ -5,7 +5,7 @@ import com.zs.assignment9.model.Student;
 
 public interface StudentService {
 
-    Student addStudent(int id, java.lang.String firstName, java.lang.String lastName) throws Exception;
+    Student addStudent(int id, java.lang.String firstName, java.lang.String lastName) throws BadRequestException;
 
     Student getStudent(int id) throws BadRequestException;
 }
