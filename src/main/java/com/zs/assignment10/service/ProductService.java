@@ -1,6 +1,7 @@
 package com.zs.assignment10.service;
 
 import com.zs.assignment10.exception.BadRequestException;
+import com.zs.assignment10.exception.FileException;
 import com.zs.assignment10.exception.InternalServerException;
 import com.zs.assignment10.model.Product;
 
@@ -21,4 +22,5 @@ public interface ProductService {
     boolean exist(int id, String tableName) throws InternalServerException, BadRequestException;
 
     void createTable() throws InternalServerException;
+    void saveToFile(List<Product> productList, String filePath) throws FileException;
 }

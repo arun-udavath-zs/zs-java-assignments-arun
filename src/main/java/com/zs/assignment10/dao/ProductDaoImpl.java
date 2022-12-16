@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class ProductDaoImpl implements ProductDao {
-    private static final Logger logger = LoggerFactory.getLogger(ProductDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductDaoImpl.class);
     private final ConnectionManager databaseConnection;
     private String dbUrl;
     private String userName;
@@ -40,7 +40,7 @@ public class ProductDaoImpl implements ProductDao {
             password = properties.getProperty("PASSWORD");
 
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            LOGGER.error("application properties file is incorrect");
         }
     }
 
@@ -58,9 +58,9 @@ public class ProductDaoImpl implements ProductDao {
              PreparedStatement preparedStatement = connection.prepareStatement(fetchAllQuery)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            return toListConversion(resultSet);
+            return toList(resultSet);
         } catch (SQLException e) {
-            throw new InternalServerException("error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
     }
 
@@ -79,9 +79,9 @@ public class ProductDaoImpl implements ProductDao {
              PreparedStatement preparedStatement = connection.prepareStatement(findQuery)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            return toProductConversion(resultSet);
+            return toProduct(resultSet);
         } catch (SQLException e) {
-            throw new InternalServerException("Database connection error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
 
     }
@@ -105,10 +105,9 @@ public class ProductDaoImpl implements ProductDao {
             preparedStatement.setString(2, productName);
             preparedStatement.setInt(3, price);
             preparedStatement.executeUpdate();
-            logger.info("product added in the database successfully!!");
 
         } catch (SQLException e) {
-            throw new InternalServerException("Database connection error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
 
     }
@@ -130,10 +129,9 @@ public class ProductDaoImpl implements ProductDao {
             preparedStatement.setString(1, productName);
             preparedStatement.setInt(2, price);
             preparedStatement.executeUpdate();
-            logger.info("product updated in the database!!");
 
         } catch (SQLException e) {
-            throw new InternalServerException("Database connection error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
 
     }
@@ -152,10 +150,9 @@ public class ProductDaoImpl implements ProductDao {
              PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
 
             preparedStatement.executeUpdate();
-            logger.info("product deleted successfully!!");
 
         } catch (SQLException e) {
-            throw new InternalServerException("Database connection error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
 
     }
@@ -177,7 +174,7 @@ public class ProductDaoImpl implements ProductDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) return true;
         } catch (SQLException e) {
-            throw new InternalServerException("Database connection error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
         return false;
     }
@@ -196,12 +193,12 @@ public class ProductDaoImpl implements ProductDao {
             String createQuery = "CREATE TABLE IF NOT EXISTS products (id int, product_name VARCHAR(20), price int)";
             statement.executeUpdate(createQuery);
         } catch (SQLException e) {
-            throw new InternalServerException("Database connection error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
 
     }
 
-    private List<Product> toListConversion(ResultSet resultSet) throws SQLException {
+    private List<Product> toList(ResultSet resultSet) throws SQLException {
         List<Product> productList = new ArrayList<>();
         while (resultSet.next()) {
             Product product = new Product();
@@ -213,7 +210,7 @@ public class ProductDaoImpl implements ProductDao {
         return productList;
     }
 
-    private Product toProductConversion(ResultSet resultSet) throws SQLException {
+    private Product toProduct(ResultSet resultSet) throws SQLException {
         Product product = new Product();
         while (resultSet.next()) {
             product.setId(resultSet.getInt("id"));

@@ -2,9 +2,12 @@ package com.zs.assignment10.service;
 
 import com.zs.assignment10.dao.ProductDaoImpl;
 import com.zs.assignment10.exception.BadRequestException;
+import com.zs.assignment10.exception.FileException;
 import com.zs.assignment10.exception.InternalServerException;
 import com.zs.assignment10.model.Product;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
@@ -67,6 +70,22 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void createTable() throws InternalServerException {
         productDaoImpl.createTable();
+    }
+
+    @Override
+    public void saveToFile(List<Product> productList, String filePath) throws FileException {
+        if (filePath == null) {
+            throw new FileException("File path provided is null");
+        }
+
+        try (FileWriter fileWriter = new FileWriter(filePath, false)) {
+            for (Product product : productList) {
+                fileWriter.write(product.toString() + "\n");
+            }
+        } catch (IOException e) {
+            throw new FileException(e.getMessage());
+        }
+
     }
 
 }

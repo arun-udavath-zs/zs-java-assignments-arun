@@ -10,9 +10,10 @@ repositories {
 }
 
 def versionMockito = '3.11.2'
+def versionJunit = '5.8.1'
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.1'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.1'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versionJunit
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: versionJunit
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.6.2'
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: versionMockito
     testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: versionMockito

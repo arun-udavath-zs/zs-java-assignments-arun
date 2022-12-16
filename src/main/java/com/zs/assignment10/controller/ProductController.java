@@ -9,14 +9,12 @@ import com.zs.assignment10.service.ProductServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class ProductController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
 
     public ProductController() {
@@ -31,95 +29,79 @@ public class ProductController {
 
         try {
             productService.createTable();
-        } catch (InternalServerException e) {
-            logger.error(e.getMessage());
-        }
 
+            do {
+                LOGGER.info("Enter the choice of operation\n1. to get all the products\n2. to find the product" +
+                        "\n3. to insert the product\n4. to update the product\n5. to delete the product\n" +
+                        "6. to check a product exists\n7. to stop ");
+                choice = sc.nextInt();
 
-        do {
-            logger.info("Enter the choice of operation\n1. to get all the products\n2. to find the product" +
-                    "\n3. to insert the product\n4. to update the product\n5. to delete the product\n" +
-                    "6. to check a product exists\n7. to stop ");
-            choice = sc.nextInt();
-            try {
                 switch (choice) {
                     case 1:
-                        logger.info("Enter the table name and filePath");
+                        LOGGER.info("Enter the table name and filePath");
                         tableName = sc.next();
                         filePath = sc.next();
                         productList = productService.findAll(tableName);
-                        saveToFile(productList, filePath);
-                        logger.info("successfully fetched the data");
+                        productService.saveToFile(productList, filePath);
+                        LOGGER.info("successfully fetched the data");
                         break;
                     case 2:
-                        logger.info("Enter the id and tableName");
+                        LOGGER.info("Enter the id and tableName");
                         id = sc.nextInt();
                         tableName = sc.next();
                         Product product = productService.findById(id, tableName);
-                        logger.info(product.toString());
+                        LOGGER.info("product : " + product.toString());
                         break;
                     case 3:
-                        logger.info("Enter id, productName,price and tableName");
+                        LOGGER.info("Enter id, productName,price and tableName");
                         id = sc.nextInt();
                         productName = sc.next();
                         price = sc.nextInt();
                         tableName = sc.next();
                         productService.insert(id, productName, price, tableName);
+                        LOGGER.info("product inserted successfully");
                         break;
                     case 4:
-                        logger.info("Enter the id, productName, price, tableName");
+                        LOGGER.info("Enter the id, productName, price, tableName");
                         id = sc.nextInt();
                         productName = sc.next();
                         price = sc.nextInt();
                         tableName = sc.next();
                         productService.update(id, productName, price, tableName);
+                        LOGGER.info("product saved in the database successfully");
                         break;
                     case 5:
-                        logger.info("Enter the id and tableName");
+                        LOGGER.info("Enter the id and tableName");
                         id = sc.nextInt();
                         tableName = sc.next();
                         productService.deleteById(id, tableName);
+                        LOGGER.info("product deleted successfully");
                         break;
                     case 6:
-                        logger.info("Enter the id and tableName");
+                        LOGGER.info("Enter the id and tableName");
                         id = sc.nextInt();
                         tableName = sc.next();
                         boolean exist = productService.exist(id, tableName);
                         if (exist)
-                            logger.info("given id exists in the database");
+                            LOGGER.info("given id exists in the database");
                         else
-                            logger.info("given id doesn't exist in the database");
+                            LOGGER.info("given id doesn't exist in the database");
                         break;
                     case 7:
                         break;
                     default:
-                        logger.info("Please enter the correct option");
+                        LOGGER.info("Please enter the correct option");
                         start();
 
                 }
-            } catch (InternalServerException e) {
-                logger.error("Something went wrong: " + e.getMessage());
-            } catch (FileException e) {
-                logger.error("Something went wrong: " + e.getMessage());
-            } catch (BadRequestException e) {
-                logger.error("Something went Wrong :" + e.getMessage());
-            }
-        } while (choice != 7);
-    }
-
-    public void saveToFile(List<Product> productList, String filePath) throws FileException {
-        if (filePath == null) {
-            throw new FileException("File path provided is null");
+            } while (choice != 7);
+        } catch (InternalServerException e) {
+            LOGGER.error("Something went wrong: " + e.getMessage());
+        } catch (FileException e) {
+            LOGGER.error("Something went wrong: " + e.getMessage());
+        } catch (BadRequestException e) {
+            LOGGER.error(e.getMessage());
         }
-
-        try (FileWriter fileWriter = new FileWriter(filePath, false)) {
-            for (Product product : productList) {
-                fileWriter.write(product.toString() + "\n");
-            }
-        } catch (IOException e) {
-            throw new FileException("error." + e.getMessage());
-        }
-
     }
 
 
