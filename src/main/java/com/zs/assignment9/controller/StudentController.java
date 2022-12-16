@@ -6,7 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StudentController {
-   private static final Logger logger= LoggerFactory.getLogger(StudentController.class);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
     private final StudentServiceImpl studentService;
 
     public StudentController() {
@@ -18,7 +19,7 @@ public class StudentController {
             studentService.addStudent(3, "sai", "iqbal");
             studentService.getStudent(2);
         } catch (BadRequestException e) {
-            logger.error("Something went wrong :" + e.getMessage());
+            LOGGER.error("Something went wrong :" + e.getMessage());
         }
 
     }

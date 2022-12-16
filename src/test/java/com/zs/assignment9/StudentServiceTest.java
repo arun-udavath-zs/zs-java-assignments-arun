@@ -39,12 +39,15 @@ class StudentServiceTest {
 
 
     @Test
-    void getStudent() throws BadRequestException {
+    void getStudent(){
         Student dummyStudent = new Student(1, "rakesh", "kucharla");
-
         Mockito.when(studentDAO.fetchStudentById(Mockito.anyInt())).thenReturn(dummyStudent);
-        Student actualStudent = studentService.getStudent(1);
-        Assertions.assertEquals("rakesh", actualStudent.getFirstName());
+        try {
+            Student actualStudent = studentService.getStudent(1);
+            Assertions.assertEquals("rakesh", actualStudent.getFirstName());
+        } catch (BadRequestException e) {
+            Assertions.fail(e.getMessage());
+        }
     }
 
     @Test
@@ -70,10 +73,10 @@ class StudentServiceTest {
             Student actualStudent = null;
             try {
                 actualStudent = studentService.addStudent(1, "sam", "ram");
+                Assertions.assertEquals("sam", actualStudent.getFirstName());
             } catch (BadRequestException e) {
               Assertions.fail(e.getMessage());
             }
-            Assertions.assertEquals("sam", actualStudent.getFirstName());
         }
 
     }
