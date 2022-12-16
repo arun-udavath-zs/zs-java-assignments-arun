@@ -14,8 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
 
@@ -41,7 +39,7 @@ class StudentServiceTest {
 
 
     @Test
-    void GetStudent() throws BadRequestException {
+    void getStudent() throws BadRequestException {
         Student dummyStudent = new Student(1, "rakesh", "kucharla");
 
         Mockito.when(studentDAO.fetchStudentById(Mockito.anyInt())).thenReturn(dummyStudent);
@@ -50,7 +48,7 @@ class StudentServiceTest {
     }
 
     @Test
-    void GetStudentException(){
+    void getStudentException(){
         BadRequestException exception= Assertions.assertThrows(BadRequestException.class,()->{
             studentService.getStudent(-1);
         });
