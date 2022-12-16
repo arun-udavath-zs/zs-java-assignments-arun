@@ -24,6 +24,8 @@ public class StudentController {
             studentService.createStudentTable();
             studentService.insertDataIntoStudentTable();
             studentService.insertDataIntoDepartment();
+            studentService.alterStudentTable();
+            studentService.updateStudentTable();
             List<Student> studentList = studentService.getStudentWithDept();
             studentService.saveToFile(studentList);
             studentService.compressFile();

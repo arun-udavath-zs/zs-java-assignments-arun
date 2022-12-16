@@ -29,7 +29,7 @@ public class StudentService {
     private final List<Student> studentList = new ArrayList<>();
     private final ConnectionManager databaseConnection;
     private final RandomFunctionsGenerator randomFunctions;
-    private String filePath;
+    private final String filePath;
     String homeDir = System.getProperty("user.dir");
 
     public StudentService() {
@@ -73,11 +73,10 @@ public class StudentService {
                 preparedStatement.setString(3, randomFunctions.generateRandomMobile());
                 preparedStatement.addBatch();
                 if (i % BATCH_SIZE == 0) {
-                    preparedStatement.executeUpdate();
+                    preparedStatement.executeBatch();
                 }
             }
             logger.info("Inserted data into students table successfully..");
-            alterStudentTable();
         } catch (SQLException e) {
             throw new InternalServerException("error." + e.getMessage());
         }
@@ -90,9 +89,8 @@ public class StudentService {
              Statement statement = connection.createStatement()) {
 
             statement.executeUpdate(createQuery);
-            logger.info("Created departments table in given database...");
             statement.executeUpdate(insertQuery);
-
+            logger.info("inserted data into departments table Successfully...");
         } catch (SQLException e) {
             throw new InternalServerException(e.getMessage());
         }
@@ -108,10 +106,10 @@ public class StudentService {
         try (Connection connection = databaseConnection.getDbConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
-            updateStudentTable();
         } catch (SQLException e) {
             throw new InternalServerException("error." + e.getMessage());
         }
+        logger.info("altered the students successfully..");
     }
 
     /**
@@ -136,6 +134,7 @@ public class StudentService {
         } catch (SQLException e) {
             throw new InternalServerException("error." + e.getMessage());
         }
+        logger.info("student table updated successfully..");
     }
 
     /**
@@ -195,7 +194,7 @@ public class StudentService {
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(filePath);
-            FileOutputStream fileOutputStream = new FileOutputStream(homeDir+"/src/main/resources/compressed-file.bin");
+            FileOutputStream fileOutputStream = new FileOutputStream(homeDir + "/src/main/resources/compressed-file.bin");
             DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(fileOutputStream);
 
             int data;
@@ -211,3 +210,4 @@ public class StudentService {
         logger.info("file compressed successfully..");
     }
 }
+
