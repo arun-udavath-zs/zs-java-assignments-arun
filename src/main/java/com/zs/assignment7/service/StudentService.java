@@ -24,13 +24,13 @@ import java.util.zip.DeflaterOutputStream;
 public class StudentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StudentService.class);
+    private static final String HOME_DIR = System.getProperty("user.dir");
     private static final int RECORD_SIZE = 1000000;
     private static final int BATCH_SIZE = 1000;
     private final List<Student> studentList = new ArrayList<>();
     private final ConnectionManager databaseConnection;
     private final RandomFunctionsGenerator randomFunctions;
     private final String filePath;
-   private static final String HOME_DIR = System.getProperty("user.dir");
 
     public StudentService() {
         this.databaseConnection = new ConnectionManager();
