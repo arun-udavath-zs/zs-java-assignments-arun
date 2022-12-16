@@ -23,19 +23,19 @@ import java.util.zip.DeflaterOutputStream;
 
 public class StudentService {
 
-    private static final Logger logger = LoggerFactory.getLogger(StudentService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StudentService.class);
     private static final int RECORD_SIZE = 1000000;
     private static final int BATCH_SIZE = 1000;
     private final List<Student> studentList = new ArrayList<>();
     private final ConnectionManager databaseConnection;
     private final RandomFunctionsGenerator randomFunctions;
     private final String filePath;
-    String homeDir = System.getProperty("user.dir");
+   private static final String HOME_DIR = System.getProperty("user.dir");
 
     public StudentService() {
         this.databaseConnection = new ConnectionManager();
         this.randomFunctions = new RandomFunctionsGenerator();
-        filePath = homeDir + "/src/main/resources/dataOutput.txt";
+        filePath = HOME_DIR + "/src/main/resources/dataOutput.txt";
     }
 
     /**
@@ -49,7 +49,7 @@ public class StudentService {
         try (Connection connection = databaseConnection.getDbConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(createQuery);
-            logger.info("student table created successfully");
+            LOGGER.info("student table created successfully");
         } catch (SQLException e) {
             throw new InternalServerException(e.getMessage());
         }
@@ -65,7 +65,7 @@ public class StudentService {
         String insertQuery = "INSERT INTO students (first_name,last_name,mobile_num) VALUES (?,?,?)";
         try (Connection connection = databaseConnection.getDbConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            logger.info("inserting data into student");
+            LOGGER.info("inserting data into student");
 
             for (int i = 1; i < RECORD_SIZE; i++) {
                 preparedStatement.setString(1, randomFunctions.generateRandomName());
@@ -76,9 +76,9 @@ public class StudentService {
                     preparedStatement.executeBatch();
                 }
             }
-            logger.info("Inserted data into students table successfully..");
+            LOGGER.info("Inserted data into students table successfully..");
         } catch (SQLException e) {
-            throw new InternalServerException("error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ public class StudentService {
 
             statement.executeUpdate(createQuery);
             statement.executeUpdate(insertQuery);
-            logger.info("inserted data into departments table Successfully...");
+            LOGGER.info("inserted data into departments table Successfully...");
         } catch (SQLException e) {
             throw new InternalServerException(e.getMessage());
         }
@@ -107,9 +107,9 @@ public class StudentService {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new InternalServerException("error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
-        logger.info("altered the students successfully..");
+        LOGGER.info("altered the students successfully..");
     }
 
     /**
@@ -132,9 +132,9 @@ public class StudentService {
                 }
             }
         } catch (SQLException e) {
-            throw new InternalServerException("error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
-        logger.info("student table updated successfully..");
+        LOGGER.info("student table updated successfully..");
     }
 
     /**
@@ -146,7 +146,7 @@ public class StudentService {
      */
 
     public List<Student> getStudentWithDept() throws InternalServerException {
-        String innerJoinQuery = "Select students.id, first_name, last_name, mobile_num, dept_name from students " +
+        String innerJoinQuery = "Select id, first_name, last_name, mobile_num, dept_name from students " +
                 "INNER JOIN departments ON students.dept_id = departments.id ORDER BY students.id ASC ";
         try (Connection connection = databaseConnection.getDbConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(innerJoinQuery)) {
@@ -162,14 +162,14 @@ public class StudentService {
             }
             resultSet.close();
         } catch (SQLException e) {
-            throw new InternalServerException("error." + e.getMessage());
+            throw new InternalServerException(e.getMessage());
         }
-        logger.info("inner join performed successfully...");
+        LOGGER.info("data fetched successfully...");
         return studentList;
     }
 
     /**
-     * This method is used to save th data into the file
+     * This method is used to save the data into the file
      *
      * @param list
      * @throws IOException
@@ -180,9 +180,9 @@ public class StudentService {
                 fileWriter.write(student.toString() + "\n");
             }
         } catch (IOException e) {
-            throw new FileException("error." + e.getMessage());
+            throw new FileException(e.getMessage());
         }
-        logger.info("data saved into file successfully..");
+        LOGGER.info("data saved into file successfully..");
     }
 
     /**
@@ -194,7 +194,7 @@ public class StudentService {
         FileInputStream fileInputStream = null;
         try {
             fileInputStream = new FileInputStream(filePath);
-            FileOutputStream fileOutputStream = new FileOutputStream(homeDir + "/src/main/resources/compressed-file.bin");
+            FileOutputStream fileOutputStream = new FileOutputStream(HOME_DIR + "/src/main/resources/compressed-file.bin");
             DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(fileOutputStream);
 
             int data;
@@ -205,9 +205,9 @@ public class StudentService {
             fileInputStream.close();
             deflaterOutputStream.close();
         } catch (IOException e) {
-            throw new FileException("error." + e.getMessage());
+            throw new FileException(e.getMessage());
         }
-        logger.info("file compressed successfully..");
+        LOGGER.info("file compressed successfully..");
     }
 }
 

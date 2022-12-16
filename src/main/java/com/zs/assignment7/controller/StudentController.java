@@ -11,7 +11,7 @@ import java.util.List;
 
 public class StudentController {
 
-    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
     private final StudentService studentService;
 
     public StudentController() {
@@ -30,9 +30,9 @@ public class StudentController {
             studentService.saveToFile(studentList);
             studentService.compressFile();
         } catch (InternalServerException e) {
-            logger.error("Something went wrong: " + e.getMessage());
+            LOGGER.error("Something went wrong: " + e.getMessage());
         } catch (FileException e){
-            logger.error("Something went wrong :"+ e.getMessage());
+            LOGGER.error("Something went wrong :"+ e.getMessage());
         }
 
     }
