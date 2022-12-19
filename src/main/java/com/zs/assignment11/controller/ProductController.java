@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProductController {
 
-    private final static Logger log = LoggerFactory.getLogger(ProductController.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
 
     ProductController(ProductService productService) {
@@ -29,13 +29,13 @@ public class ProductController {
 
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable int id) {
-        log.info("to fetch the product with id " + id);
+        LOGGER.info("to fetch the product with id " + id);
         return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
     }
 
     @GetMapping("/products/{category}")
     public ResponseEntity<List<Product>> getProductByCategory(@PathVariable String category) {
-        log.info("to fetch the product with category " + category);
+        LOGGER.info("to fetch the product with category " + category);
         return new ResponseEntity<>(productService.getProductByCategory(category), HttpStatus.OK);
     }
 
@@ -46,19 +46,19 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
-        log.info("entered in addProduct");
+        LOGGER.info("entered in addProduct");
         return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.CREATED);
     }
 
     @DeleteMapping("products/{id}")
     public void deleteProduct(@PathVariable("id") int id) throws BadRequestException {
-        log.info("to delete the product with id " + id);
+        LOGGER.info("to delete the product with id " + id);
         productService.deleteProduct(id);
     }
 
     @PutMapping("/products")
     public void updateProduct(@RequestBody Product product) throws BadRequestException {
-        log.info("entered in update product");
+        LOGGER.info("entered in update product");
         productService.updateProduct(product);
     }
 }

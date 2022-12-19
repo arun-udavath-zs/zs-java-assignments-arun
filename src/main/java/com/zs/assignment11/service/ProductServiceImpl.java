@@ -12,10 +12,11 @@ import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    private final static Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
     private final ProductRepository productRepository;
 
     ProductServiceImpl(ProductRepository productRepository) {
+
         this.productRepository = productRepository;
     }
 
@@ -66,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     public Product saveProduct(Product product) {
         Optional<Product> productOptional = productRepository.findById(product.getId());
         if (productOptional.isPresent()) {
-            log.error("Product with " + product.getId() + " already exists");
+            LOGGER.error("Product with " + product.getId() + " already exists");
             throw new IllegalStateException("Product with " + product.getId() + " already exists");
         }
         return productRepository.save(product);
@@ -82,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(int id) throws BadRequestException {
         boolean exits = productRepository.existsById(id);
         if (!exits) {
-            log.error("product with id " + id + " does not exists");
+            LOGGER.error("product with id " + id + " does not exists");
             throw new BadRequestException("product with id " + id + " does not exists");
         }
         productRepository.deleteById(id);
@@ -98,7 +99,7 @@ public class ProductServiceImpl implements ProductService {
     public void updateProduct(Product product) throws BadRequestException {
         boolean exists = productRepository.existsById(product.getId());
         if (!exists) {
-            log.error("product with id " + product.getId() + " does not exists");
+            LOGGER.error("product with id " + product.getId() + " does not exists");
             throw new BadRequestException("product with id " + product.getId() + " does not exists");
         }
         productRepository.save(product);
