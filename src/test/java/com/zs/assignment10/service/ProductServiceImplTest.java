@@ -40,8 +40,8 @@ class ProductServiceImplTest {
 
     static Stream<Arguments> getData() {
         return Stream.of(
-                Arguments.arguments(1, "iphone", false),
-                Arguments.arguments(-1, "iphone", true),
+                Arguments.arguments(1, "product", false),
+                Arguments.arguments(-1, "product", true),
                 Arguments.arguments(1, null, true)
         );
     }

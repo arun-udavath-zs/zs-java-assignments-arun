@@ -46,7 +46,6 @@ public class ProductDaoImpl implements ProductDao {
 
     /**
      * used to find the data in the database
-     *
      * @param tableName input parameter to find the database
      * @return list of products in the database
      */
@@ -66,7 +65,6 @@ public class ProductDaoImpl implements ProductDao {
 
     /**
      * This method is used to find the product by id
-     *
      * @param id        id of the product to find
      * @param tableName table name
      * @return the product of given id
@@ -88,7 +86,6 @@ public class ProductDaoImpl implements ProductDao {
 
     /**
      * This method is used to insert the date in the database
-     *
      * @param id          product id
      * @param productName product name to insert
      * @param price       price to insert
@@ -114,7 +111,6 @@ public class ProductDaoImpl implements ProductDao {
 
     /**
      * This method used to update the product in the database
-     *
      * @param id          product it
      * @param productName product name
      * @param price       product price
@@ -138,7 +134,6 @@ public class ProductDaoImpl implements ProductDao {
 
     /**
      * This method is used to delete the product by id in the database
-     *
      * @param id        product id
      * @param tableName table name
      */
@@ -159,7 +154,6 @@ public class ProductDaoImpl implements ProductDao {
 
     /**
      * This method is used to check if the product exists with id
-     *
      * @param id        product id
      * @param tableName table name
      * @return
@@ -181,7 +175,6 @@ public class ProductDaoImpl implements ProductDao {
 
     /**
      * This method is used to create the table
-     *
      * @throws InternalServerException
      */
     @Override

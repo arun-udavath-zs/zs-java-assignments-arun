@@ -5,8 +5,8 @@ public class Product {
     private String productName;
     private int price;
 
-    public int getId(int i, String id) {
-        return this.id;
+    public int getId(int id) {
+        return id;
     }
 
     public String getProductName() {
