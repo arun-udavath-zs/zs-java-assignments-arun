@@ -13,17 +13,17 @@ public class Product {
     @Id
     private int id;
     private String productName;
-
-    public Product(int id, String productName, String category, int price) {
-        this.id = id;
-        this.productName = productName;
-        this.category = category;
-        this.price = price;
-    }
+    private int price;
+    private int categoryId;
 
     Product() {
     }
 
-    private String category;
-    private int price;
+    public Product(int id, String productName, int price, int categoryId) {
+        this.id = id;
+        this.productName = productName;
+        this.price = price;
+        this.categoryId = categoryId;
+    }
+
 }

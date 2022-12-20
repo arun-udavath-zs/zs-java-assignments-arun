@@ -8,9 +8,6 @@ import java.util.List;
 
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-
-    List<Product> getProductByCategory(String category);
-
-    @Query(value = "SELECT DISTINCT category from product", nativeQuery = true)
-    List<String> getAllCategories();
+    @Query(value = "SELECT * FROM product where category_id=?1", nativeQuery = true)
+    List<Product> findAllProductsByCategory(int categoryId);
 }

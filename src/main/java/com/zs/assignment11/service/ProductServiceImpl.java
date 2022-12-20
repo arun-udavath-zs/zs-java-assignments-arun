@@ -1,108 +1,70 @@
 package com.zs.assignment11.service;
 
 import com.zs.assignment11.exception.BadRequestException;
+import com.zs.assignment11.exception.ProductNotFoundException;
 import com.zs.assignment11.model.Product;
 import com.zs.assignment11.repository.ProductRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
-public class ProductServiceImpl implements ProductService {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
-    private final ProductRepository productRepository;
+public class ProductServiceImpl implements ProductService{
 
-    ProductServiceImpl(ProductRepository productRepository) {
+    private ProductRepository productRepository;
 
+    public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-    /**
-     * This method is used to fetch all products in the database
-     *
-     * @return list of all products
-     */
     @Override
-    public List<Product> getAllProducts() {
+    public List<Product> findAllProducts() {
         return productRepository.findAll();
     }
 
-    /**
-     * to fetch the product by id
-     *
-     * @param id to fetch the product with unique id
-     * @return product with the given id
-     */
     @Override
-    public Product getProductById(int id) {
-        return productRepository.findById(id).get();
-    }
-
-    @Override
-    public List<String> getAllCategories() {
-        return productRepository.getAllCategories();
-    }
-
-    /**
-     *This method is used to fetch the product with given category
-     *
-     * @param category to fetch the products with given category
-     * @return list of products with given category
-     */
-    @Override
-    public List<Product> getProductByCategory(String category) {
-        return productRepository.getProductByCategory(category);
-    }
-
-    /**
-     *This method is used to add the product in the database
-     *
-     * @param product a product to add in database
-     * @return a saved product
-     */
-    @Override
-    public Product saveProduct(Product product) {
-        Optional<Product> productOptional = productRepository.findById(product.getId());
-        if (productOptional.isPresent()) {
-            LOGGER.error("Product with " + product.getId() + " already exists");
-            throw new IllegalStateException("Product with " + product.getId() + " already exists");
+    public List<Product> findAllProductsByCategory(int categoryId) throws BadRequestException, ProductNotFoundException {
+        if (categoryId <0) {
+            throw new BadRequestException("Category id cannot be negative");
         }
+        List<Product> productList= productRepository.findAllProductsByCategory(categoryId);
+        if (productList!=null){
+            return productList;
+        }
+        throw new ProductNotFoundException("product with given id doesn't exists");
+    }
+
+    @Override
+    public Product saveProduct(Product product) throws BadRequestException {
+        if (product.getId() < 0 || product.getProductName()== null || product.getPrice()<0 || product.getCategoryId()<0)
+            throw new BadRequestException("given input is not valid");
         return productRepository.save(product);
     }
 
-    /**
-     * This method is used to delete the product with given id
-     *
-     * @param id delete the product with this id
-     * @throws BadRequestException throws exception if id does not exist
-     */
     @Override
-    public void deleteProduct(int id) throws BadRequestException {
-        boolean exits = productRepository.existsById(id);
-        if (!exits) {
-            LOGGER.error("product with id " + id + " does not exists");
-            throw new BadRequestException("product with id " + id + " does not exists");
+    public Optional<Product> findById(int id) throws BadRequestException, ProductNotFoundException {
+        if (id <0) {
+            throw new BadRequestException("Id cannot be negative");
         }
-        productRepository.deleteById(id);
+        Optional<Product> product= productRepository.findById(id);
+        if (product!=null) {
+             return product;
+        }
+        throw new ProductNotFoundException("product with given id doesn't exists");
     }
 
-    /**
-     * This method used to update the product in the database
-     *
-     * @param product product to update
-     * @throws BadRequestException throws exception if id does not exist
-     */
     @Override
-    public void updateProduct(Product product) throws BadRequestException {
-        boolean exists = productRepository.existsById(product.getId());
-        if (!exists) {
-            LOGGER.error("product with id " + product.getId() + " does not exists");
-            throw new BadRequestException("product with id " + product.getId() + " does not exists");
+    public void delete(int id) throws BadRequestException {
+        if (id < 0){
+            throw new BadRequestException("Id cannot be negative");
         }
-        productRepository.save(product);
+       productRepository.deleteById(id);
     }
 
+    @Override
+    public Product update(Product product) throws BadRequestException {
+        if (product.getId() < 0 || product.getProductName()== null || product.getPrice()<0 || product.getCategoryId()<0)
+            throw new BadRequestException("given input is not valid");
+        return productRepository.save(product);
+    }
 }

@@ -1,23 +1,23 @@
 package com.zs.assignment11.service;
 
 import com.zs.assignment11.exception.BadRequestException;
+import com.zs.assignment11.exception.ProductNotFoundException;
 import com.zs.assignment11.model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
-    List<Product> getAllProducts();
+    List<Product> findAllProducts();
 
-    Product getProductById(int id);
+    List<Product> findAllProductsByCategory(int id) throws BadRequestException, ProductNotFoundException;
 
-    List<String> getAllCategories();
+    Product saveProduct(Product product) throws BadRequestException;
 
-    List<Product> getProductByCategory(String category);
+    Optional<Product> findById(int id) throws BadRequestException, ProductNotFoundException;
 
-    Product saveProduct(Product product);
+    void delete(int id) throws BadRequestException;
 
-    void deleteProduct(int id) throws BadRequestException;
-
-    void updateProduct(Product product) throws BadRequestException;
+    Product update(Product product) throws BadRequestException;
 
 }
