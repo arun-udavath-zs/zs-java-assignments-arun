@@ -1,7 +1,7 @@
 package com.zs.assignment11.service;
 
 import com.zs.assignment11.exception.BadRequestException;
-import com.zs.assignment11.exception.ProductNotFoundException;
+import com.zs.assignment11.exception.CategoryNotFoundException;
 import com.zs.assignment11.model.Category;
 import com.zs.assignment11.repository.CategoryRepository;
 import org.junit.jupiter.api.Assertions;
@@ -72,7 +72,7 @@ class CategoryServiceImplTest {
             try {
                 Mockito.when(categoryRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(getCategory()));
                categoryService.findById(id);
-            } catch (BadRequestException | ProductNotFoundException e) {
+            } catch (BadRequestException | CategoryNotFoundException e) {
                 Assertions.fail(e.getMessage());
             }
         }
@@ -109,7 +109,7 @@ class CategoryServiceImplTest {
                 Mockito.when(categoryRepository.save(Mockito.any(Category.class))).thenReturn(getCategory());
                 Category expectedCategory = categoryService.update(category);
                 Assertions.assertEquals(getCategory(), expectedCategory);
-            } catch (BadRequestException e) {
+            } catch (BadRequestException | CategoryNotFoundException e) {
                 Assertions.fail(e.getMessage());
             }
         }

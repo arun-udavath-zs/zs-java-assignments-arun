@@ -9,14 +9,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class ProductController {
-
     private final static Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     private final ProductService productService;
     private final ProductRepository productRepository;
@@ -38,17 +44,17 @@ public class ProductController {
         try {
             return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
         } catch (BadRequestException | ProductNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @GetMapping("/products/category/{categoryId}")
+    @GetMapping("/categories/{categoryId}/products")
     public ResponseEntity<?> getProductByCategory(@PathVariable int categoryId) {
         LOGGER.info("to fetch the product with category " + categoryId);
         try {
             return new ResponseEntity<>(productService.findAllProductsByCategory(categoryId), HttpStatus.OK);
         } catch (BadRequestException | ProductNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -58,7 +64,7 @@ public class ProductController {
         try {
             return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.CREATED);
         } catch (BadRequestException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -76,9 +82,9 @@ public class ProductController {
     public ResponseEntity<?> updateProduct(@RequestBody Product product) {
         LOGGER.info("entered in update product");
         try {
-          return new ResponseEntity<>(productService.update(product),HttpStatus.OK);
-        } catch (BadRequestException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(productService.update(product), HttpStatus.OK);
+        } catch (BadRequestException | ProductNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

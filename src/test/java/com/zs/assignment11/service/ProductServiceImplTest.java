@@ -141,7 +141,7 @@ class ProductServiceImplTest {
                 Product actualProduct = productService.update(product);
                 Assertions.assertEquals(getProduct(), actualProduct);
 
-            } catch (BadRequestException e) {
+            } catch (BadRequestException | ProductNotFoundException e) {
                 Assertions.fail(e.getMessage());
             }
         }

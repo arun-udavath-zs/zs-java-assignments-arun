@@ -1,7 +1,7 @@
 package com.zs.assignment11.controller;
 
 import com.zs.assignment11.exception.BadRequestException;
-import com.zs.assignment11.exception.ProductNotFoundException;
+import com.zs.assignment11.exception.CategoryNotFoundException;
 import com.zs.assignment11.model.Category;
 import com.zs.assignment11.service.CategoryService;
 import org.slf4j.Logger;
@@ -35,8 +35,8 @@ public class CategoryController {
     @GetMapping("/categories/{id}")
     public ResponseEntity<?> findById(@PathVariable int id) {
         try {
-            return new ResponseEntity<>(categoryService.findById(id), HttpStatus.CREATED);
-        } catch (BadRequestException | ProductNotFoundException e) {
+            return new ResponseEntity<>(categoryService.findById(id), HttpStatus.OK);
+        } catch (BadRequestException | CategoryNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
@@ -63,7 +63,7 @@ public class CategoryController {
     public ResponseEntity<?> updateCategory(@RequestBody Category category) {
         try {
             return new ResponseEntity<>(categoryService.update(category), HttpStatus.OK);
-        } catch (BadRequestException e) {
+        } catch (BadRequestException | CategoryNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

@@ -18,6 +18,6 @@ public interface ProductService {
 
     void delete(int id) throws BadRequestException;
 
-    Product update(Product product) throws BadRequestException;
+    Product update(Product product) throws BadRequestException, ProductNotFoundException;
 
 }

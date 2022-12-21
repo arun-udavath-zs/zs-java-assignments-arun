@@ -1,7 +1,7 @@
 package com.zs.assignment11.service;
 
 import com.zs.assignment11.exception.BadRequestException;
-import com.zs.assignment11.exception.ProductNotFoundException;
+import com.zs.assignment11.exception.CategoryNotFoundException;
 import com.zs.assignment11.model.Category;
 import com.zs.assignment11.repository.CategoryRepository;
 import com.zs.assignment11.repository.ProductRepository;
@@ -28,7 +28,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * This method is used to add the category
-     *
      * @param category
      * @return
      */
@@ -36,29 +35,28 @@ public class CategoryServiceImpl implements CategoryService {
     public Category addCategory(Category category) throws BadRequestException {
         if (category.getCategoryId() < 0 | category.getName() == null)
             throw new BadRequestException("given input is not valid");
+        if (categoryRepository.existsById(category.getCategoryId()))
+            throw new BadRequestException("category with given id already exists");
         return categoryRepository.save(category);
     }
 
     /**
      * This method is used to find the category by id
-     *
      * @param id
      * @return
      */
     @Override
-    public Optional<Category> findById(int id) throws BadRequestException, ProductNotFoundException {
+    public Optional<Category> findById(int id) throws BadRequestException, CategoryNotFoundException {
         if (id < 0) {
             throw new BadRequestException("Id cannot be negative");
         }
-        Optional<Category> category = categoryRepository.findById(id);
-        if (category != null)
-            return category;
-        throw new ProductNotFoundException("category with given id doesn't exists");
+        if (!categoryRepository.existsById(id))
+            throw new CategoryNotFoundException("category with given id doesn't exists");
+        return categoryRepository.findById(id);
     }
 
     /**
      * This method is used to update the product
-     *
      * @param id
      */
     @Override
@@ -70,14 +68,15 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * This method is used to update the product
-     *
      * @param category
      * @return
      */
     @Override
-    public Category update(Category category) throws BadRequestException {
+    public Category update(Category category) throws BadRequestException, CategoryNotFoundException {
         if (category.getCategoryId() < 0 || category.getName() == null)
             throw new BadRequestException("given input is not valid");
+        if (!categoryRepository.existsById(category.getCategoryId()))
+            throw new CategoryNotFoundException("category with given id doesn't exists");
         return categoryRepository.save(category);
     }
 
