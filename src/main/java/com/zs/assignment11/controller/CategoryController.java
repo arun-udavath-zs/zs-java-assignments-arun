@@ -27,12 +27,12 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/category")
+    @GetMapping("/categories")
     public ResponseEntity<List<Category>> findAllCategory() {
         return new ResponseEntity<>(categoryService.findAllCategory(), HttpStatus.OK);
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/categories/{id}")
     public ResponseEntity<?> findById(@PathVariable int id) {
         try {
             return new ResponseEntity<>(categoryService.findById(id), HttpStatus.CREATED);
@@ -41,7 +41,7 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("/category")
+    @PostMapping("/categories")
     public ResponseEntity<?> addCategory(@RequestBody Category category) {
         try {
             return new ResponseEntity<Category>(categoryService.addCategory(category), HttpStatus.OK);
@@ -50,7 +50,7 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping("/category/{id}")
+    @DeleteMapping("/categories/{id}")
     public void deleteCategory(@PathVariable int id) {
         try {
             categoryService.delete(id);
@@ -59,7 +59,7 @@ public class CategoryController {
         }
     }
 
-    @PutMapping("/category")
+    @PutMapping("/categories")
     public ResponseEntity<?> updateCategory(@RequestBody Category category) {
         try {
             return new ResponseEntity<>(categoryService.update(category), HttpStatus.OK);
