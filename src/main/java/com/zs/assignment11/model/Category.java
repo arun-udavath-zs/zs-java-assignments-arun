@@ -2,6 +2,7 @@ package com.zs.assignment11.model;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,13 +10,11 @@ import javax.persistence.Id;
 @Entity
 public class Category {
     @Id
-    private int categoryId;
+    @Column(name = "category_id")
+    private Integer categoryId;
     private String name;
 
-    Category() {
-    }
-
-    ;
+    Category() {}
 
     public Category(int categoryId, String name) {
         this.categoryId = categoryId;

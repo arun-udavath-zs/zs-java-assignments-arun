@@ -1,9 +1,12 @@
 package com.zs.assignment11.service;
 
 import com.zs.assignment11.exception.BadRequestException;
-import com.zs.assignment11.exception.ProductNotFoundException;
+import com.zs.assignment11.exception.EntityNotFoundException;
 import com.zs.assignment11.model.Product;
+import com.zs.assignment11.repository.CategoryRepository;
 import com.zs.assignment11.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +15,14 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
     private ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     /**
@@ -23,8 +30,13 @@ public class ProductServiceImpl implements ProductService {
      * @return
      */
     @Override
-    public List<Product> findAllProducts() {
-        return productRepository.findAll();
+    public List<Product> findAllProducts() throws EntityNotFoundException {
+        List<Product> productList = productRepository.findAll();
+        if (productList.size() == 0) {
+            throw new EntityNotFoundException("result not found");
+        }
+        LOGGER.info("product fetched successfully");
+        return productList;
     }
 
     /**
@@ -32,18 +44,22 @@ public class ProductServiceImpl implements ProductService {
      * @param categoryId
      * @return
      * @throws BadRequestException
-     * @throws ProductNotFoundException
+     * @throws EntityNotFoundException
      */
     @Override
-    public List<Product> findAllProductsByCategory(int categoryId) throws BadRequestException, ProductNotFoundException {
-        if (categoryId < 0) {
-            throw new BadRequestException("Category id cannot be negative");
+    public List<Product> findAllProductsByCategory(int categoryId) throws BadRequestException, EntityNotFoundException {
+        if (categoryId <= 0) {
+            throw new BadRequestException("Invalid product id");
+        }
+        if(!categoryRepository.existsById(categoryId)){
+            throw new BadRequestException("category with given id doesn't exists");
         }
         List<Product> productList = productRepository.findAllProductsByCategory(categoryId);
-        if (productList != null) {
-            return productList;
+        if (productList.size() == 0) {
+            throw new EntityNotFoundException("result not found");
         }
-        throw new ProductNotFoundException("product with given id doesn't exists");
+        LOGGER.info("product fetched successfully");
+        return productList;
     }
 
     /**
@@ -54,10 +70,27 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public Product saveProduct(Product product) throws BadRequestException {
-        if (product.getId() < 0 || product.getProductName() == null || product.getPrice() < 0 || product.getCategoryId() < 0)
-            throw new BadRequestException("given input is not valid");
-        if (productRepository.existsById(product.getId()))
+        if (product.getId() <= 0 )
+            throw new BadRequestException("Invalid product id");
+        if (product.getProductName() == null) {
+            throw new BadRequestException("Invalid product name");
+        }
+        if (product.getPrice() < 0) {
+            throw new BadRequestException("Invalid price");
+        }
+        if(product.getCategory().getCategoryId() <= 0){
+            throw new BadRequestException("Invalid category id");
+        }
+        if(product.getCategory().getName() == null){
+            throw new BadRequestException("Invalid category name");
+        }
+        if (productRepository.existsById(product.getId())) {
             throw new BadRequestException("product with given id already exists");
+        }
+        if (!categoryRepository.existsById(product.getCategory().getCategoryId())){
+            throw new BadRequestException("category with given id doesn't exists");
+        }
+        LOGGER.info("product saved successfully");
         return productRepository.save(product);
     }
 
@@ -66,31 +99,38 @@ public class ProductServiceImpl implements ProductService {
      * @param id
      * @return
      * @throws BadRequestException
-     * @throws ProductNotFoundException
+     * @throws EntityNotFoundException
      */
     @Override
-    public Optional<Product> findById(int id) throws BadRequestException, ProductNotFoundException {
-        if (id < 0) {
-            throw new BadRequestException("Id cannot be negative");
+    public Optional<Product> findById(int id) throws BadRequestException, EntityNotFoundException {
+        if (id <= 0) {
+            throw new BadRequestException("Invalid id");
         }
-        Optional<Product> product = productRepository.findById(id);
-        if (product != null) {
-            return product;
+        if (!productRepository.existsById(id)) {
+            throw new EntityNotFoundException("product with given id doesn't exits");
         }
-        throw new ProductNotFoundException("product with given id doesn't exists");
+        LOGGER.info("product fetched successfully");
+        return productRepository.findById(id);
     }
 
     /**
      * This method is used to delete the product
+     *
      * @param id
      * @throws BadRequestException
      */
     @Override
-    public void delete(int id) throws BadRequestException {
-        if (id < 0) {
-            throw new BadRequestException("Id cannot be negative");
+    public Optional<Product> delete(int id) throws BadRequestException {
+        if (id <= 0) {
+            throw new BadRequestException("Invalid id");
         }
+        if (!productRepository.existsById(id)) {
+            throw new BadRequestException("product with given id doesn't exists");
+        }
+        Optional<Product> product = productRepository.findById(id);
         productRepository.deleteById(id);
+        LOGGER.info("product deleted successfully");
+        return product;
     }
 
     /**
@@ -98,14 +138,30 @@ public class ProductServiceImpl implements ProductService {
      * @param product
      * @return
      * @throws BadRequestException
-     * @throws ProductNotFoundException
+     * @throws EntityNotFoundException
      */
     @Override
-    public Product update(Product product) throws BadRequestException, ProductNotFoundException {
-        if (product.getId() < 0 || product.getProductName() == null || product.getPrice() < 0 || product.getCategoryId() < 0)
-            throw new BadRequestException("given input is not valid");
-        if (!productRepository.existsById(product.getId()))
-            throw new ProductNotFoundException("product doesn't exists with given id");
+    public Product update(int id, Product product) throws BadRequestException, EntityNotFoundException {
+        if (product.getId() <= 0 )
+            throw new BadRequestException("Invalid product id");
+        if (product.getProductName() == null) {
+            throw new BadRequestException("Invalid product name");
+        }
+        if (product.getPrice() < 0) {
+            throw new BadRequestException("Invalid price");
+        }
+        if(product.getCategory().getCategoryId() < 0){
+            throw new BadRequestException("Invalid category id");
+        }
+        if(product.getCategory().getName() == null){
+            throw new BadRequestException("Invalid category name");
+        }
+        if (!productRepository.existsById(id)) {
+            throw new EntityNotFoundException("product with given id doesn't exists");
+        }
+        if (!categoryRepository.existsById(product.getCategory().getCategoryId())) {
+            throw new BadRequestException("category with given id doesn't exists");
+        }
         return productRepository.save(product);
     }
 }

@@ -3,27 +3,29 @@ package com.zs.assignment11.model;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Entity
-@Table
 @Data
+@Entity
 public class Product {
     @Id
-    private int id;
+    private Integer id;
+    @JoinColumn(name = "product_name")
     private String productName;
     private int price;
-    private int categoryId;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    Product() {
-    }
-
-    public Product(int id, String productName, int price, int categoryId) {
+    Product() {}
+    public Product(Integer id, String productName, int price, Category category) {
         this.id = id;
         this.productName = productName;
         this.price = price;
-        this.categoryId = categoryId;
+        this.category = category;
     }
 
 }
