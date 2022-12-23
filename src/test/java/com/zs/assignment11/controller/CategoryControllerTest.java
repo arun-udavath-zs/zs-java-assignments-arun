@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zs.assignment11.model.Category;
 import com.zs.assignment11.service.CategoryServiceImpl;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
@@ -29,57 +30,69 @@ class CategoryControllerTest {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void findAllCategory() throws Exception {
-
-        BDDMockito.given(categoryService.findAllCategory()).willReturn(getCategoryList());
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/categories")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].categoryId", Matchers.is(1)));
-
-    }
-
-    @Test
-    void findById() throws Exception {
-        BDDMockito.given(categoryService.findById(ArgumentMatchers.anyInt())).willReturn(Optional.of(getCategory()));
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/categories/{id}", 1)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Mobile")));
+    void findAllCategory()  {
+        try {
+            BDDMockito.given(categoryService.findAllCategory()).willReturn(getCategoryList());
+            mockMvc.perform(MockMvcRequestBuilders
+                            .get("/api/categories")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$[0].categoryId", Matchers.is(1)));
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage());
+        }
 
     }
 
     @Test
-    void addCategory() throws Exception {
-        String jsonProduct = objectMapper.writeValueAsString(getCategory());
-        BDDMockito.given(categoryService.saveCategory(ArgumentMatchers.any(Category.class))).willReturn(getCategory());
+    void findById()  {
+        try {
+            BDDMockito.given(categoryService.findById(ArgumentMatchers.anyInt())).willReturn(Optional.of(getCategory()));
+            mockMvc.perform(MockMvcRequestBuilders
+                            .get("/api/categories/{id}", 1)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Mobile")));
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage());
+        }
 
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/category")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonProduct)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Mobile")));
     }
 
     @Test
-    void updateCategory() throws Exception {
-        String jsonProduct = objectMapper.writeValueAsString(getCategory());
-        BDDMockito.given(categoryService.update(ArgumentMatchers.anyInt(), ArgumentMatchers.any(Category.class))).willReturn(getCategory());
-        mockMvc.perform(MockMvcRequestBuilders
-                        .put("/api/categories/{id}", 1)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonProduct)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Mobile")));
+    void addCategory() {
+        try {
+            String jsonProduct = objectMapper.writeValueAsString(getCategory());
+            BDDMockito.given(categoryService.saveCategory(ArgumentMatchers.any(Category.class))).willReturn(getCategory());
+            mockMvc.perform(MockMvcRequestBuilders
+                            .post("/api/category")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(jsonProduct)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Mobile")));
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void updateCategory() {
+        try {
+            String jsonProduct = objectMapper.writeValueAsString(getCategory());
+            BDDMockito.given(categoryService.update(ArgumentMatchers.anyInt(), ArgumentMatchers.any(Category.class))).willReturn(getCategory());
+            mockMvc.perform(MockMvcRequestBuilders
+                            .put("/api/categories/{id}", 1)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(jsonProduct)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Mobile")));
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage());
+        }
     }
 
     private Category getCategory() {

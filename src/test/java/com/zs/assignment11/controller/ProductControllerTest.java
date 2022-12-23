@@ -5,6 +5,7 @@ import com.zs.assignment11.model.Category;
 import com.zs.assignment11.model.Product;
 import com.zs.assignment11.service.ProductServiceImpl;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
@@ -32,81 +33,97 @@ class ProductControllerTest {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void getAllProducts() throws Exception {
-
-        BDDMockito.given(productService.findAllProducts()).willReturn(getProductList());
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/products")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)));
-
-    }
-
-    @Test
-    void getProductById() throws Exception {
-        BDDMockito.given(productService.findById(ArgumentMatchers.anyInt())).willReturn(Optional.of(getProduct()));
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/products/{id}", 1)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)));
-    }
-
-    @Test
-    void getProductByCategory() throws Exception {
-        BDDMockito.given(productService.findAllProductsByCategory(ArgumentMatchers.anyInt())).willReturn(getProductList());
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/products/category/{categoryId}", 1)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)));
-    }
-
-    @Test
-    void addProduct() throws Exception {
-
-        String jsonProduct = objectMapper.writeValueAsString(getProduct());
-        BDDMockito.given(productService.saveProduct(ArgumentMatchers.any(Product.class))).willReturn(getProduct());
-
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/product")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonProduct)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+    void getAllProducts(){
+        try {
+            BDDMockito.given(productService.findAllProducts()).willReturn(getProductList());
+            mockMvc.perform(MockMvcRequestBuilders
+                            .get("/api/products")
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)));
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage());
+        }
 
     }
 
     @Test
-    void deleteProduct() throws Exception {
-
-        BDDMockito.given(productService.delete(ArgumentMatchers.anyInt())).willReturn(Optional.of(getProduct()));
-        mockMvc.perform(MockMvcRequestBuilders
-                        .delete("/api/products/{id}", 1)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.productName", Matchers.is("iphone")));
+    void getProductById() {
+        try {
+            BDDMockito.given(productService.findById(ArgumentMatchers.anyInt())).willReturn(Optional.of(getProduct()));
+            mockMvc.perform(MockMvcRequestBuilders
+                            .get("/api/products/{id}", 1)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)));
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage());
+        }
     }
 
     @Test
-    void updateProduct() throws Exception {
-        String jsonProduct = objectMapper.writeValueAsString(getProduct());
-        BDDMockito.given(productService.update(ArgumentMatchers.anyInt(), ArgumentMatchers.any(Product.class))).willReturn(getProduct());
-        mockMvc.perform(MockMvcRequestBuilders
-                        .put("/api/products/{id}", 1)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonProduct)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.productName", Matchers.is("iphone")));
+    void getProductByCategory() {
+        try {
+            BDDMockito.given(productService.findAllProductsByCategory(ArgumentMatchers.anyInt())).willReturn(getProductList());
+            mockMvc.perform(MockMvcRequestBuilders
+                            .get("/api/products/category/{categoryId}", 1)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)));
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void addProduct() {
+        try {
+            String jsonProduct = objectMapper.writeValueAsString(getProduct());
+            BDDMockito.given(productService.saveProduct(ArgumentMatchers.any(Product.class))).willReturn(getProduct());
+            mockMvc.perform(MockMvcRequestBuilders
+                            .post("/api/product")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(jsonProduct)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage());
+        }
+
+    }
+
+    @Test
+    void deleteProduct() {
+        try {
+            BDDMockito.given(productService.delete(ArgumentMatchers.anyInt())).willReturn(Optional.of(getProduct()));
+            mockMvc.perform(MockMvcRequestBuilders
+                            .delete("/api/products/{id}", 1)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.productName", Matchers.is("iphone")));
+        } catch (Exception e) {
+            Assertions.fail(e.getMessage());
+        }
+    }
+
+    @Test
+    void updateProduct()  {
+        try {
+            String jsonProduct = objectMapper.writeValueAsString(getProduct());
+            BDDMockito.given(productService.update(ArgumentMatchers.anyInt(), ArgumentMatchers.any(Product.class))).willReturn(getProduct());
+            mockMvc.perform(MockMvcRequestBuilders
+                            .put("/api/products/{id}", 1)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(jsonProduct)
+                            .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.productName", Matchers.is("iphone")));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

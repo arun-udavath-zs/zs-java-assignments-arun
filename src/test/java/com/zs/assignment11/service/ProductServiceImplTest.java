@@ -34,23 +34,21 @@ class ProductServiceImplTest {
 
     static Stream<Arguments> getSaveData() {
         return Stream.of(
-                Arguments.arguments(0, new Product(1, "iphone", 12000, new Category(1, "mobile")), false),
-                Arguments.arguments(1, new Product(-1, "iphone", 12000, new Category(1, "mobile")), true),
-                Arguments.arguments(2, new Product(1, null, 12000, new Category(1, "mobile")), true),
-                Arguments.arguments(3, new Product(1, "iphone", -1, new Category(1, "mobile")), true),
-                Arguments.arguments(4, new Product(1, "iphone", 100, new Category(-1, "mobile")), true),
-                Arguments.arguments(5, new Product(1, "iphone", 100, new Category(1, null)), true)
+                Arguments.arguments(new Product(1, "iphone", 12000, new Category(1, "mobile")), false),
+                Arguments.arguments(new Product(-1, "iphone", 12000, new Category(1, "mobile")), true),
+                Arguments.arguments(new Product(1, null, 12000, new Category(1, "mobile")), true),
+                Arguments.arguments(new Product(1, "iphone", -1, new Category(1, "mobile")), true),
+                Arguments.arguments(new Product(1, "iphone", 100, new Category(-1, "mobile")), true)
         );
     }
 
     static Stream<Arguments> getUpdateData() {
         return Stream.of(
-                Arguments.arguments(0, 1, new Product(1, "iphone", 12000, new Category(1, "mobile")), false),
-                Arguments.arguments(1, 1, new Product(-1, "iphone", 12000, new Category(1, "mobile")), true),
-                Arguments.arguments(2, 1, new Product(1, null, 12000, new Category(1, "mobile")), true),
-                Arguments.arguments(3, 1, new Product(1, "iphone", -1, new Category(1, "mobile")), true),
-                Arguments.arguments(4, 1, new Product(1, "iphone", 100, new Category(-1, "mobile")), true),
-                Arguments.arguments(5, 1, new Product(1, "iphone", 100, new Category(1, null)), true)
+                Arguments.arguments( 1, new Product(1, "iphone", 12000, new Category(1, "mobile")), false),
+                Arguments.arguments( 1, new Product(-1, "iphone", 12000, new Category(1, "mobile")), true),
+                Arguments.arguments( 1, new Product(1, null, 12000, new Category(1, "mobile")), true),
+                Arguments.arguments( 1, new Product(1, "iphone", -1, new Category(1, "mobile")), true),
+                Arguments.arguments( 1, new Product(1, "iphone", 100, new Category(-1, "mobile")), true)
         );
     }
 
@@ -91,7 +89,6 @@ class ProductServiceImplTest {
             Assertions.assertEquals("Invalid product id", exception.getMessage());
         } else {
             try {
-                Mockito.when(categoryRepository.existsById(ArgumentMatchers.anyInt())).thenReturn(true);
                 Mockito.when(productRepository.findAllProductsByCategory(Mockito.anyInt())).thenReturn(getProductList());
                 List<Product> productList = productService.findAllProductsByCategory(id);
                 Assertions.assertEquals(1, productList.size());
@@ -102,50 +99,26 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void findAllByCategoryEntityException() {
-        Mockito.when(categoryRepository.existsById(Mockito.anyInt())).thenReturn(true);
+    void findAllByCategoryException() {
         Mockito.when(productRepository.findAllProductsByCategory(1)).thenReturn(new ArrayList<>());
         EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
             productService.findAllProductsByCategory(1);
         });
-        Assertions.assertEquals("result not found", exception.getMessage());
+        Assertions.assertEquals("product not found", exception.getMessage());
     }
 
-    @Test
-    void findAllByCategoryBadRequestException() {
-        Mockito.when(categoryRepository.existsById(Mockito.anyInt())).thenReturn(false);
-        BadRequestException exception = Assertions.assertThrows(BadRequestException.class, () -> {
-            productService.findAllProductsByCategory(1);
-        });
-        Assertions.assertEquals("category with given id doesn't exists", exception.getMessage());
-    }
 
     @ParameterizedTest
     @MethodSource("getSaveData")
-    void saveProduct(int eNumber, Product product, boolean isExcepted) {
+    void saveProduct(Product product, boolean isExcepted) {
         if (isExcepted) {
             BadRequestException exception = Assertions.assertThrows(BadRequestException.class, () -> {
                 productService.saveProduct(product);
             });
-            if (eNumber == 1) {
-                Assertions.assertEquals("Invalid product id", exception.getMessage());
-            }
-            if (eNumber == 2) {
-                Assertions.assertEquals("Invalid product name", exception.getMessage());
-            }
-            if (eNumber == 3) {
-                Assertions.assertEquals("Invalid price", exception.getMessage());
-            }
-            if (eNumber == 4) {
-                Assertions.assertEquals("Invalid category id", exception.getMessage());
-            }
-            if (eNumber == 5) {
-                Assertions.assertEquals("Invalid category name", exception.getMessage());
-            }
+            Assertions.assertNotNull(exception);
         } else {
             try {
                 Mockito.when(productRepository.existsById(ArgumentMatchers.anyInt())).thenReturn(false);
-                Mockito.when(categoryRepository.existsById(ArgumentMatchers.anyInt())).thenReturn(true);
                 Mockito.when(productRepository.save(Mockito.any(Product.class))).thenReturn(getProduct());
                 Product actualProduct = productService.saveProduct(product);
                 Assertions.assertEquals(getProduct(), actualProduct);
@@ -164,14 +137,6 @@ class ProductServiceImplTest {
         Assertions.assertEquals("product with given id already exists", exception.getMessage());
     }
 
-    @Test
-    void saveProductCategoryException() {
-        Mockito.when(categoryRepository.existsById(Mockito.anyInt())).thenReturn(false);
-        BadRequestException exception = Assertions.assertThrows(BadRequestException.class, () -> {
-            productService.saveProduct(getProduct());
-        });
-        Assertions.assertEquals("category with given id doesn't exists", exception.getMessage());
-    }
 
     @ParameterizedTest
     @MethodSource("getData")
@@ -234,30 +199,14 @@ class ProductServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("getUpdateData")
-    void update(int eNumber, int id, Product product, boolean isExcepted) {
+    void update(int id, Product product, boolean isExcepted) {
         if (isExcepted) {
             BadRequestException exception = Assertions.assertThrows(BadRequestException.class, () -> {
                 productService.update(id, product);
             });
-            if (eNumber == 1) {
-                Assertions.assertEquals("Invalid product id", exception.getMessage());
-            }
-            if (eNumber == 2) {
-                Assertions.assertEquals("Invalid product name", exception.getMessage());
-            }
-            if (eNumber == 3) {
-                Assertions.assertEquals("Invalid price", exception.getMessage());
-            }
-            if (eNumber == 4) {
-                Assertions.assertEquals("Invalid category id", exception.getMessage());
-            }
-            if (eNumber == 5) {
-                Assertions.assertEquals("Invalid category name", exception.getMessage());
-            }
         } else {
             try {
                 Mockito.when(productRepository.existsById(ArgumentMatchers.anyInt())).thenReturn(true);
-                Mockito.when(categoryRepository.existsById(ArgumentMatchers.anyInt())).thenReturn(true);
                 Mockito.when(productRepository.save(Mockito.any(Product.class))).thenReturn(getProduct());
                 Product actualProduct = productService.update(id, product);
                 Assertions.assertEquals(getProduct(), actualProduct);
@@ -276,15 +225,6 @@ class ProductServiceImplTest {
         Assertions.assertEquals("product with given id doesn't exists", exception.getMessage());
     }
 
-    @Test
-    void updateCategoryException() {
-        Mockito.when(productRepository.existsById(Mockito.anyInt())).thenReturn(true);
-        Mockito.when(categoryRepository.existsById(Mockito.anyInt())).thenReturn(false);
-        BadRequestException exception = Assertions.assertThrows(BadRequestException.class, () -> {
-            productService.update(1, getProduct());
-        });
-        Assertions.assertEquals("category with given id doesn't exists", exception.getMessage());
-    }
 
     private List<Product> getProductList() {
         List<Product> productList = new ArrayList<>();

@@ -20,7 +20,7 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    Product() {}
+    public Product() {}
     public Product(Integer id, String productName, int price, Category category) {
         this.id = id;
         this.productName = productName;

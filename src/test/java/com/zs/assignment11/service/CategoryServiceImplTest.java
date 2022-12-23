@@ -68,7 +68,7 @@ class CategoryServiceImplTest {
         EntityNotFoundException exception = Assertions.assertThrows(EntityNotFoundException.class, () -> {
             categoryService.findAllCategory();
         });
-        Assertions.assertEquals("result not found", exception.getMessage());
+        Assertions.assertEquals("category not found", exception.getMessage());
     }
 
     @ParameterizedTest

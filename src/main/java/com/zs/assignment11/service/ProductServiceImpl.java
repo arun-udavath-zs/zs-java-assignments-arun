@@ -3,7 +3,6 @@ package com.zs.assignment11.service;
 import com.zs.assignment11.exception.BadRequestException;
 import com.zs.assignment11.exception.EntityNotFoundException;
 import com.zs.assignment11.model.Product;
-import com.zs.assignment11.repository.CategoryRepository;
 import com.zs.assignment11.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,16 +16,14 @@ public class ProductServiceImpl implements ProductService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
     private ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository,
-                              CategoryRepository categoryRepository) {
+    public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.categoryRepository = categoryRepository;
     }
 
     /**
      * This method is used to find all the products
+     *
      * @return
      * @throws EntityNotFoundException
      */
@@ -42,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * This method is used to find the products with given category
+     *
      * @param categoryId
      * @return
      * @throws BadRequestException
@@ -52,12 +50,9 @@ public class ProductServiceImpl implements ProductService {
         if (categoryId <= 0) {
             throw new BadRequestException("Invalid product id");
         }
-        if (!categoryRepository.existsById(categoryId)) {
-            throw new BadRequestException("category with given id doesn't exists");
-        }
         List<Product> productList = productRepository.findAllProductsByCategory(categoryId);
         if (productList.size() == 0) {
-            throw new EntityNotFoundException("result not found");
+            throw new EntityNotFoundException("product not found");
         }
         LOGGER.info("product fetched successfully");
         return productList;
@@ -65,6 +60,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * This method is used to save the product
+     *
      * @param product
      * @return
      * @throws BadRequestException
@@ -82,14 +78,8 @@ public class ProductServiceImpl implements ProductService {
         if (product.getCategory().getCategoryId() <= 0) {
             throw new BadRequestException("Invalid category id");
         }
-        if (product.getCategory().getName() == null) {
-            throw new BadRequestException("Invalid category name");
-        }
         if (productRepository.existsById(product.getId())) {
             throw new BadRequestException("product with given id already exists");
-        }
-        if (!categoryRepository.existsById(product.getCategory().getCategoryId())) {
-            throw new BadRequestException("category with given id doesn't exists");
         }
         LOGGER.info("product saved successfully");
         return productRepository.save(product);
@@ -97,6 +87,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * This method is used to find the product with id
+     *
      * @param id
      * @return
      * @throws BadRequestException
@@ -116,6 +107,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * This method is used to delete the product
+     *
      * @param id
      * @throws BadRequestException
      */
@@ -135,6 +127,7 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * This method is used to update the product
+     *
      * @param product
      * @return
      * @throws BadRequestException
@@ -158,9 +151,6 @@ public class ProductServiceImpl implements ProductService {
         }
         if (!productRepository.existsById(id)) {
             throw new EntityNotFoundException("product with given id doesn't exists");
-        }
-        if (!categoryRepository.existsById(product.getCategory().getCategoryId())) {
-            throw new BadRequestException("category with given id doesn't exists");
         }
         return productRepository.save(product);
     }

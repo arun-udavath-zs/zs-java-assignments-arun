@@ -4,7 +4,6 @@ import com.zs.assignment11.exception.BadRequestException;
 import com.zs.assignment11.exception.EntityNotFoundException;
 import com.zs.assignment11.model.Category;
 import com.zs.assignment11.repository.CategoryRepository;
-import com.zs.assignment11.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,16 +16,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
     private final CategoryRepository categoryRepository;
-    private final ProductRepository productRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository,
-                               ProductRepository productRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
     }
 
     /**
      * This method is used to find all the category
+     *
      * @return
      * @throws EntityNotFoundException
      */
@@ -34,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAllCategory() throws EntityNotFoundException {
         List<Category> categoryList = categoryRepository.findAll();
         if (categoryList.size() == 0) {
-            throw new EntityNotFoundException("result not found");
+            throw new EntityNotFoundException("category not found");
         }
         LOGGER.info("category fetched successfully");
         return categoryList;
@@ -43,6 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * This method is used to save the category
+     *
      * @param category
      * @return
      * @throws BadRequestException
@@ -64,6 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * This method is used to find the category by id
+     *
      * @param id
      * @return
      * @throws BadRequestException
@@ -83,6 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     /**
      * This method is used to update the product
+     *
      * @param id
      * @param category
      * @return

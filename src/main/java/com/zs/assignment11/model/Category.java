@@ -14,7 +14,7 @@ public class Category {
     private Integer categoryId;
     private String name;
 
-    Category() {}
+    public Category() {}
 
     public Category(int categoryId, String name) {
         this.categoryId = categoryId;

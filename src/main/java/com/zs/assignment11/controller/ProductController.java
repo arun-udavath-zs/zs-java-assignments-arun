@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -45,8 +46,8 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/products/category/{categoryId}")
-    public ResponseEntity<?> getProductByCategory(@PathVariable int categoryId) {
+    @GetMapping("/products/category")
+    public ResponseEntity<?> getProductByCategory(@RequestParam int categoryId) {
         try {
             return new ResponseEntity<>(productService.findAllProductsByCategory(categoryId), HttpStatus.OK);
         } catch (BadRequestException e) {
@@ -62,6 +63,8 @@ public class ProductController {
             return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.CREATED);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (javax.persistence.EntityNotFoundException e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
