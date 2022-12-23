@@ -57,14 +57,14 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/product")
+    @PostMapping("/products")
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         try {
             return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.CREATED);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (javax.persistence.EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+        } catch (Exception e){
+            return new ResponseEntity<>("category doesn't exists",HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -85,6 +85,8 @@ public class ProductController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>("category doesn't exist",HttpStatus.BAD_REQUEST);
         }
     }
 }
