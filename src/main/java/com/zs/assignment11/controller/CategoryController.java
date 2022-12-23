@@ -31,7 +31,7 @@ public class CategoryController {
         try {
             return new ResponseEntity<>(categoryService.findAllCategory(), HttpStatus.OK);
         } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -41,15 +41,15 @@ public class CategoryController {
             return new ResponseEntity<>(categoryService.findById(id), HttpStatus.OK);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/category")
     public ResponseEntity<?> addCategory(@RequestBody Category category) {
         try {
-            return new ResponseEntity<Category>(categoryService.saveCategory(category), HttpStatus.OK);
+            return new ResponseEntity<Category>(categoryService.saveCategory(category), HttpStatus.CREATED);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -61,8 +61,8 @@ public class CategoryController {
             return new ResponseEntity<>(categoryService.update(id, category), HttpStatus.OK);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 }

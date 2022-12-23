@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface CategoryService {
 
     List<Category> findAllCategory() throws EntityNotFoundException;
+
     Category saveCategory(Category category) throws BadRequestException;
 
     Optional<Category> findById(int id) throws BadRequestException, EntityNotFoundException;

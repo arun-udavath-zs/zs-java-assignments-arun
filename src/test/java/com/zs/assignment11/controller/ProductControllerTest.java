@@ -1,77 +1,113 @@
 package com.zs.assignment11.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zs.assignment11.model.Category;
 import com.zs.assignment11.model.Product;
 import com.zs.assignment11.service.ProductServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.ArgumentMatchers;
+import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.util.Optional;
 
 
 @WebMvcTest(ProductController.class)
-@ExtendWith(MockitoExtension.class)
 class ProductControllerTest {
-    @Mock
+    @MockBean
     private ProductServiceImpl productService;
 
     @Autowired
     private MockMvc mockMvc;
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(ProductController.class).build();
-    }
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     void getAllProducts() throws Exception {
-            Mockito.when(productService.findAllProducts()).thenReturn(getProductList());
 
-            mockMvc.perform(MockMvcRequestBuilders
-                    .get("/api/products")
-                    .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk())
-                    .andExpect(MockMvcResultMatchers.jsonPath("$",hasSize(1)))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$[0].getId()",is(1)));
+        BDDMockito.given(productService.findAllProducts()).willReturn(getProductList());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/products")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)));
 
     }
 
     @Test
-    void getProductById() {
+    void getProductById() throws Exception {
+        BDDMockito.given(productService.findById(ArgumentMatchers.anyInt())).willReturn(Optional.of(getProduct()));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/products/{id}", 1)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)));
     }
 
     @Test
-    void getProductByCategory() {
+    void getProductByCategory() throws Exception {
+        BDDMockito.given(productService.findAllProductsByCategory(ArgumentMatchers.anyInt())).willReturn(getProductList());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/api/products/category/{categoryId}", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)));
     }
 
     @Test
-    void addProduct() {
+    void addProduct() throws Exception {
+
+        String jsonProduct = objectMapper.writeValueAsString(getProduct());
+        BDDMockito.given(productService.saveProduct(ArgumentMatchers.any(Product.class))).willReturn(getProduct());
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/api/product")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonProduct)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
+
     }
 
     @Test
-    void deleteProduct() {
+    void deleteProduct() throws Exception {
+
+        BDDMockito.given(productService.delete(ArgumentMatchers.anyInt())).willReturn(Optional.of(getProduct()));
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/api/products/{id}", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.productName", Matchers.is("iphone")));
     }
 
     @Test
-    void updateProduct() {
+    void updateProduct() throws Exception {
+        String jsonProduct = objectMapper.writeValueAsString(getProduct());
+        BDDMockito.given(productService.update(ArgumentMatchers.anyInt(), ArgumentMatchers.any(Product.class))).willReturn(getProduct());
+        mockMvc.perform(MockMvcRequestBuilders
+                        .put("/api/products/{id}", 1)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonProduct)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.productName", Matchers.is("iphone")));
+
     }
 
     private List<Product> getProductList() {
@@ -79,6 +115,7 @@ class ProductControllerTest {
         productList.add(getProduct());
         return productList;
     }
+
     private Product getProduct() {
         Product product = new Product(1, "iphone", 120000, new Category(1, "mobile"));
         return product;

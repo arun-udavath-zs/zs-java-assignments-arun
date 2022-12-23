@@ -4,8 +4,6 @@ import com.zs.assignment11.exception.BadRequestException;
 import com.zs.assignment11.exception.EntityNotFoundException;
 import com.zs.assignment11.model.Product;
 import com.zs.assignment11.service.ProductService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class ProductController {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+
     private final ProductService productService;
 
     ProductController(ProductService productService) {
@@ -32,7 +30,7 @@ public class ProductController {
         try {
             return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
         } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -42,8 +40,8 @@ public class ProductController {
             return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -53,8 +51,8 @@ public class ProductController {
             return new ResponseEntity<>(productService.findAllProductsByCategory(categoryId), HttpStatus.OK);
         } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -70,20 +68,20 @@ public class ProductController {
     @DeleteMapping("products/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable("id") int id) {
         try {
-           return new ResponseEntity<>(productService.delete(id),HttpStatus.OK);
+            return new ResponseEntity<>(productService.delete(id), HttpStatus.OK);
         } catch (BadRequestException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/products/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable int id,@RequestBody Product product) {
+    public ResponseEntity<?> updateProduct(@PathVariable int id, @RequestBody Product product) {
         try {
             return new ResponseEntity<>(productService.update(id, product), HttpStatus.OK);
-        } catch (BadRequestException e ) {
+        } catch (BadRequestException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -25,10 +25,15 @@ public class CategoryServiceImpl implements CategoryService {
         this.productRepository = productRepository;
     }
 
+    /**
+     * This method is used to find all the category
+     * @return
+     * @throws EntityNotFoundException
+     */
     @Override
     public List<Category> findAllCategory() throws EntityNotFoundException {
         List<Category> categoryList = categoryRepository.findAll();
-        if (categoryList.size() == 0){
+        if (categoryList.size() == 0) {
             throw new EntityNotFoundException("result not found");
         }
         LOGGER.info("category fetched successfully");
@@ -36,12 +41,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
 
+    /**
+     * This method is used to save the category
+     * @param category
+     * @return
+     * @throws BadRequestException
+     */
     @Override
     public Category saveCategory(Category category) throws BadRequestException {
         if (category.getCategoryId() <= 0) {
             throw new BadRequestException("Invalid category id");
         }
-        if(category.getName() == null){
+        if (category.getName() == null) {
             throw new BadRequestException("Invalid category name");
         }
         if (categoryRepository.existsById(category.getCategoryId())) {
@@ -51,7 +62,13 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.save(category);
     }
 
-
+    /**
+     * This method is used to find the category by id
+     * @param id
+     * @return
+     * @throws BadRequestException
+     * @throws EntityNotFoundException
+     */
     @Override
     public Optional<Category> findById(int id) throws BadRequestException, EntityNotFoundException {
         if (id <= 0) {
@@ -64,13 +81,20 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id);
     }
 
-
+    /**
+     * This method is used to update the product
+     * @param id
+     * @param category
+     * @return
+     * @throws BadRequestException
+     * @throws EntityNotFoundException
+     */
     @Override
-    public Category update(int id,Category category) throws BadRequestException, EntityNotFoundException {
-        if (category.getCategoryId() <= 0 ) {
+    public Category update(int id, Category category) throws BadRequestException, EntityNotFoundException {
+        if (category.getCategoryId() <= 0) {
             throw new BadRequestException("Invalid category id");
         }
-        if ( category.getName() == null) {
+        if (category.getName() == null) {
             throw new BadRequestException("Invalid category name");
         }
         if (!categoryRepository.existsById(id)) {
